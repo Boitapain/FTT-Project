@@ -1,2 +1,2 @@
-# FTT-Web
-The website for the 3rd year project
+# FTT Project
+3rd year project
