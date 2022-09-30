@@ -8,9 +8,11 @@ This system is divided into three distinctive applications :
 ---
 ## FTT-Mobile
 (TODO: add a screencast of the app and explain how it work)
+
 ---
 ## FTT-Web
 (TODO: add screens of the front-end and explanations on how the website's work)
+
 ---
 ## FTT-AI
 (TODO: add screens and explain parts of the algorithm)
