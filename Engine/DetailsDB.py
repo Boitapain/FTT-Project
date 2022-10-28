@@ -78,7 +78,7 @@ def login(msg_received):
         sys.exit("Error connecting to the host. Please check your inputs.")
 
 db_cursor = detailsdb.cursor()
-app.run(host="0.0.0.0", port=5000, debug=True, threaded=True)
+app.run(host="127.0.0.1", port=5000, debug=True, threaded=True)
 
 """
  * Serving Flask app 'DetailsDB' (lazy loading)
@@ -91,5 +91,5 @@ app.run(host="0.0.0.0", port=5000, debug=True, threaded=True)
  * Debugger PIN: 124-208-133
  * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
- * Running on http://192.168.0.156:5000/ (Press CTRL+C to quit)
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
  """
