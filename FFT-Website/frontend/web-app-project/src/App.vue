@@ -1,4 +1,5 @@
 <template>
+  <top-header></top-header>
   <nav>
     <router-link to="/about">About</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -7,6 +8,13 @@
   </nav>
   <router-view/>
 </template>
+
+<script>
+  import TopHeader from './components/Top-Header';
+  export default {
+    components: {'top-header': TopHeader}
+  }
+</script>
 
 <style lang="scss">
 #app {

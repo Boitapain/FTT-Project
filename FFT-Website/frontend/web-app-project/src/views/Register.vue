@@ -27,7 +27,7 @@
                     .then((userCredential) => {
                         const user = userCredential.user;
                         console.log(user);
-                        this.$router.replace({name: "secret"});
+                        this.$router.replace({name: "login"});
                     })
                 }
                 catch(err){ 
