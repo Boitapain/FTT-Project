@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-    import { getAuth, /*onAuthStateChanged,*/ signOut } from "firebase/auth";
+    import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
     // import * as firebase from "firebase/app";
 
     export default{
@@ -26,6 +26,12 @@
         //         }
         //     })
         // },
+        created(){
+            const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+                    this.loggedIn = !!user;
+                });
+        },
         data(){
             return {
                 loggedIn: false
