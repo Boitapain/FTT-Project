@@ -22,6 +22,13 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS userdetails (id INT(11) NOT NULL A
                   ' password VARCHAR(32) NOT NULL,'
                   ' financial_inst VARCHAR(225))')
 
+db_cursor.execute('CREATE TABLE IF NOT EXISTS purchasedetails (purchase_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                  ' email VARCHAR(255) NOT NULL,'
+                  ' purchaseAmount VARCHAR(255) NOT NULL,'
+                  ' asset VARCHAR(255) NOT NULL,'
+                  ' date VARCHAR(32) NOT NULL,'
+                  ' FOREIGN KEY (email) REFERENCES userdetails(email))')
+
 def register(msg_received):
     firstname = msg_received['firstname']
     lastname = msg_received['lastname']
@@ -49,7 +56,7 @@ def login(msg_received):
     email = msg_received['email']
     password = msg_received['password']
 
-    select_query = "SELECT first_name, last_name FROM users where email = " + "'" + email + "' and password = " + "MD5('" + password + "')"
+    select_query = "SELECT first_name, last_name FROM users where email = ", "'", email, "' and password = ", "MD5('", password, "')"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
 
@@ -57,9 +64,27 @@ def login(msg_received):
         return "failure"
     else:
         return "successful"
+
+def purchase(msg_received):
+    email = msg_received['email']
+    purchaseAmount = msg_received['purchaseAmount']
+    asset = msg_received['asset']
+    date = msg_received['date']
+
+    insert_query = "INSERT INTO userdetails (email, purchaseAmount, asset, date) VALUES (%s, %s, %s, %s)"
+    insert_values = (email, purchaseAmount, asset, date)
+
     try:
-        detailsdb = pymysql.connect(host='127.0.0.1', port=3306, user='group17', passwd='group17')
-    except:
-        sys.exit("Error connecting to the host")
+        db_cursor.execute(insert_query, insert_values)
+        detailsdb.commit()
+        return "successful"
+    except Exception as e:
+        print("Error while inserting the new record :", repr(e))
+        return "failure"
+
+try:
+    detailsdb = pymysql.connect(host='127.0.0.1', port=3306, user='group17', passwd='group17')
+except:
+    sys.exit("Error connecting to the host")
 
 db_cursor = detailsdb.cursor()
