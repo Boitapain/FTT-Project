@@ -33,6 +33,7 @@ If login is true, the app/website sends the stock/crypto names
 to the api and the api returns current price &
 price difference for each crypto/stock.
 """
+@app.route('/pricediff', methods = ["GET", "POST"])
 def price_diff():
     if login == True:
         return Crypto_Predict.crypto_Price_Diff()
@@ -45,6 +46,7 @@ If stock page is called, app/website will send name of stock
 -> "amd", "apple", "gme", "tesla", "twitter" to api and api will
 return the graphs (current and prediciton)
 """
+@app.route('/stockpage', methods = ["GET", "POST"])
 def stock_page():
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']
@@ -60,6 +62,7 @@ If crypto page is called, app/website will send name of crypto
 -> "binance", "bitcoin", "cardano", "dogecoin", "ethereum" to api and api will
 return the graphs (current and prediciton)
 """
+@app.route('/cryptopage', methods = ["GET", "POST"])
 def crypto_page():
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']
@@ -73,6 +76,7 @@ def crypto_page():
 If purchase is called, the app/website will send the message "purchase" with
 the details of the purchase to the api and it will be stored in the database.
 """
+@app.route('/purchase', methods = ["GET", "POST"])
 def purchase():
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']

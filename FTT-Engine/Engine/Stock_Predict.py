@@ -295,8 +295,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(amd_g_train['Close'])
-        plt.plot(amd_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(amd_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
     elif (stock == "apple"):
@@ -305,8 +305,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(apple_g_train['Close'])
-        plt.plot(apple_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(apple_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
 
@@ -317,8 +317,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(gme_g_train['Close'])
-        plt.plot(gme_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(gme_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
 
@@ -328,8 +328,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(tesla_g_train['Close'])
-        plt.plot(tesla_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(tesla_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
     elif (stock == "twitter"):
@@ -338,8 +338,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(twitter_g_train['Close'])
-        plt.plot(twitter_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(twitter_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
 def graph_Stock_Graph(stock):
@@ -384,7 +384,7 @@ def graph_Stock_Graph(stock):
         plt.ylabel("Close Price", fontsize=10)
         plt.show()
 
-"""
+
 graph_Stock_Graph("amd")
 graph_Stock_Predict("amd")
 
@@ -399,4 +399,3 @@ graph_Stock_Predict("gme")
 
 graph_Stock_Graph("tesla")
 graph_Stock_Predict("tesla")
-"""
