@@ -52,6 +52,7 @@ binanceCoin_model.add(Dense(1))
 
 binanceCoin_model.compile(optimizer='adam', loss='mean_squared_error')
 binanceCoin_model.fit(binanceCoin_x_train, binanceCoin_y_train, batch_size=1, epochs=1)
+#binanceCoin_model.fit(binanceCoin_x_train, binanceCoin_y_train, batch_size=1, epochs=0)
 
 binanceCoin_test_data=binanceCoin_scaled_data[binanceCoin_training_data_len-60:,:]
 binanceCoin_x_test = []
@@ -96,6 +97,7 @@ bitcoin_model.add(Dense(1))
 
 bitcoin_model.compile(optimizer='adam', loss='mean_squared_error')
 bitcoin_model.fit(bitcoin_x_train, bitcoin_y_train, batch_size=1, epochs=1)
+#bitcoin_model.fit(bitcoin_x_train, bitcoin_y_train, batch_size=1, epochs=0)
 
 bitcoin_test_data=bitcoin_scaled_data[bitcoin_training_data_len-60:,:]
 bitcoin_x_test = []
@@ -142,6 +144,7 @@ cardano_model.add(Dense(1))
 
 cardano_model.compile(optimizer='adam', loss='mean_squared_error')
 cardano_model.fit(cardano_x_train, cardano_y_train, batch_size=1, epochs=1)
+#cardano_model.fit(cardano_x_train, cardano_y_train, batch_size=1, epochs=0)
 
 cardano_test_data=cardano_scaled_data[cardano_training_data_len-60:,:]
 cardano_x_test = []
@@ -187,6 +190,8 @@ dogecoin_model.add(Dense(1))
 
 dogecoin_model.compile(optimizer='adam', loss='mean_squared_error')
 dogecoin_model.fit(dogecoin_x_train, dogecoin_y_train, batch_size=1, epochs=1)
+#dogecoin_model.fit(dogecoin_x_train, dogecoin_y_train, batch_size=1, epochs=0)
+
 
 dogecoin_test_data=dogecoin_scaled_data[dogecoin_training_data_len-60:,:]
 dogecoin_x_test = []
@@ -233,6 +238,7 @@ ethereum_model.add(Dense(1))
 
 ethereum_model.compile(optimizer='adam', loss='mean_squared_error')
 ethereum_model.fit(ethereum_x_train, ethereum_y_train, batch_size=1, epochs=1)
+#ethereum_model.fit(ethereum_x_train, ethereum_y_train, batch_size=1, epochs=0)
 
 ethereum_test_data=ethereum_scaled_data[ethereum_training_data_len-60:,:]
 ethereum_x_test = []
@@ -290,8 +296,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(binanceCoin_g_train['Close'])
-        plt.plot(binanceCoin_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(binanceCoin_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
     elif (stock == "bitcoin"):
@@ -300,8 +306,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(bitcoin_g_train['Close'])
-        plt.plot(bitcoin_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(bitcoin_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
 
@@ -312,8 +318,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(cardano_g_train['Close'])
-        plt.plot(cardano_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(cardano_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
 
@@ -323,8 +329,8 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(dogecoin_g_train['Close'])
-        plt.plot(dogecoin_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(dogecoin_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
 
     elif (stock == "Ethereum"):
@@ -333,10 +339,10 @@ def graph_Stock_Predict(stock):
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(ethereum_g_train['Close'])
-        plt.plot(ethereum_g_valid[['Close', 'predictions']])
-        plt.legend(['History', 'Valid', 'Prediction'], loc='lower right')
+        plt.plot(ethereum_g_valid['predictions'])
+        plt.legend(['History','Prediction'], loc='best')
         plt.show()
-
+    
 def graph_Stock_Graph(stock):
 
     if (stock == "binance"):
@@ -381,7 +387,7 @@ def graph_Stock_Graph(stock):
 
 
 
-"""
+
 graph_Stock_Graph("binance")
 graph_Stock_Predict("binance")
 
@@ -396,4 +402,4 @@ graph_Stock_Predict("dogecoin")
 
 graph_Stock_Graph("ethereum")
 graph_Stock_Predict("ethereum")
-"""
+
