@@ -2,10 +2,10 @@ import pymysql
 import sys
 import json
 
-# try:
-#     detailsdb = pymysql.connect(host='127.0.0.1',port=3306, user='group17', passwd='group17', db="details_db")
-# except:
-#     sys.exit("Error connecting to the host")
+try:
+    detailsdb = pymysql.connect(host='127.0.0.1',port=3306, user='group17', passwd='group17', db="details_db")
+except:
+    sys.exit("Error connecting to the host")
 
 
 db_cursor = detailsdb.cursor()

@@ -46,6 +46,7 @@
                             }
                         }).then(data=>{    
                             // Log the response data in the console
+                            document.cookie = "login=" + this.email + ";"
                             console.log(data)
                         } 
                         ).catch((err) => console.error(err));
@@ -84,15 +85,48 @@
         color: red;
         font-size: 18px;
     }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #app{
+        height: 100%;
+        
+    }
+
     input{
-        width: 400px;
-        padding: 30px;
-        margin: 20px;
+        width: 300px;
+        height: 10px;
+        padding: 20px;
+        margin: 15px;
         font-size: 21px;
+        border-radius: 5px;
+        background-color: #EEEEEE;
+        border: 4px solid #393e4600;
     }
+
+    // palette: https://colorhunt.co/palette/232931393e464ecca3eeeeee
+
     button{
-        width: 400px;
-        height: 75px;
+        width: 300px;
+        height: 45px;
         font-size: 100%;
+        margin-top: 2%;
+        background-color: #4ECCA3;
     }
+    button:hover{
+        cursor: pointer;
+        background-color: #232931;
+        border: 3px solid #4ECCA3;
+        color: #4ECCA3;
+        transition: 0.2s;
+    }
+    input:hover{
+        border: 4px solid #393E46;
+        transition: 0.2s;
+    }
+
 </style>
