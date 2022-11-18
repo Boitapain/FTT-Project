@@ -1,12 +1,20 @@
 import flask
+from flask_cors import CORS
 import DetailsDB
 import Crypto_Predict
 import Stock_Predict
 
+
 app = flask.Flask(__name__)
+CORS(app)
 
 login = False
 
+"""
+Chat between app/website with login/register.
+App/Website needs to send ket word "login" or "register with details
+to save to database.
+"""
 @app.route('/', methods = ["GET", "POST"])
 def chat():
     msg_received = flask.request.get_json()
@@ -20,6 +28,10 @@ def chat():
     else:
         return "Invalid request."
 
+"""
+If login is true, api returns current price &
+price difference for each crypto/stock.
+"""
 def price_diff():
     if login == True:
         return Crypto_Predict.crypto_Price_Diff()
@@ -27,6 +39,11 @@ def price_diff():
     else:
         return "Invalid request."
 
+"""
+If stock page is called, app/website will send name of stock
+-> "amd", "apple", "gme", "tesla", "twitter" to api and api will
+return the graphs (current and prediciton)
+"""
 def stock_page():
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']
@@ -36,6 +53,12 @@ def stock_page():
     else:
         return "Invalid request."
 
+
+"""
+If crypto page is called, app/website will send name of crypto
+-> "binance", "bitcoin", "cardano", "dogecoin", "ethereum" to api and api will
+return the graphs (current and prediciton)
+"""
 def crypto_page():
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']
@@ -45,6 +68,10 @@ def crypto_page():
     else:
         return "Invalid request."
 
+"""
+If purchase is called, the app/website will send the message "purchase" with
+the details of the purchase to the api and it will be stored in the database.
+"""
 def purchase():
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']
@@ -56,14 +83,3 @@ def purchase():
 
 app.run(host="127.0.0.1", port=5000, debug=True, threaded=True)
 
-"""
- * Serving Flask app 'API' (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 873-873-224
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-"""

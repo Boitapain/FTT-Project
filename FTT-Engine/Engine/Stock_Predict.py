@@ -49,7 +49,8 @@ amd_model.add(Dense(25))
 amd_model.add(Dense(1))
 
 amd_model.compile(optimizer='adam', loss='mean_squared_error')
-amd_model.fit(amd_x_train, amd_y_train, batch_size=1, epochs=1)
+#amd_model.fit(amd_x_train, amd_y_train, batch_size=1, epochs=1)
+amd_model.fit(amd_x_train, amd_y_train, batch_size=1, epochs=0)
 
 amd_test_data=amd_scaled_data[amd_training_data_len-60:,:]
 amd_x_test = []
@@ -93,7 +94,8 @@ apple_model.add(Dense(25))
 apple_model.add(Dense(1))
 
 apple_model.compile(optimizer='adam', loss='mean_squared_error')
-apple_model.fit(apple_x_train, apple_y_train, batch_size=1, epochs=1)
+#apple_model.fit(apple_x_train, apple_y_train, batch_size=1, epochs=1)
+apple_model.fit(apple_x_train, apple_y_train, batch_size=1, epochs=0)
 
 apple_test_data = apple_scaled_data[apple_training_data_len - 60:, :]
 apple_x_test = []
@@ -138,7 +140,8 @@ gme_model.add(Dense(25))
 gme_model.add(Dense(1))
 
 gme_model.compile(optimizer='adam', loss='mean_squared_error')
-gme_model.fit(gme_x_train, gme_y_train, batch_size=1, epochs=1)
+#gme_model.fit(gme_x_train, gme_y_train, batch_size=1, epochs=1)
+gme_model.fit(gme_x_train, gme_y_train, batch_size=1, epochs=0)
 
 gme_test_data = gme_scaled_data[gme_training_data_len - 60:, :]
 gme_x_test = []
@@ -182,7 +185,8 @@ tesla_model.add(Dense(25))
 tesla_model.add(Dense(1))
 
 tesla_model.compile(optimizer='adam', loss='mean_squared_error')
-tesla_model.fit(tesla_x_train, tesla_y_train, batch_size=1, epochs=1)
+#tesla_model.fit(tesla_x_train, tesla_y_train, batch_size=1, epochs=1)
+tesla_model.fit(tesla_x_train, tesla_y_train, batch_size=1, epochs=0)
 
 tesla_test_data = tesla_scaled_data[tesla_training_data_len - 60:, :]
 tesla_x_test = []
@@ -226,7 +230,8 @@ twitter_model.add(Dense(25))
 twitter_model.add(Dense(1))
 
 twitter_model.compile(optimizer='adam', loss='mean_squared_error')
-twitter_model.fit(twitter_x_train, twitter_y_train, batch_size=1, epochs=1)
+#twitter_model.fit(twitter_x_train, twitter_y_train, batch_size=1, epochs=1)
+twitter_model.fit(twitter_x_train, twitter_y_train, batch_size=1, epochs=0)
 
 twitter_test_data = twitter_scaled_data[twitter_training_data_len - 60:, :]
 twitter_x_test = []
