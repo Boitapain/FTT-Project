@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="pressed">
+        <form @submit.prevent="pressedAPI">
             Login
             <div class="login">
                 <input type="email" v-model="email" placeholder="login"> 
@@ -23,12 +23,33 @@
         name: 'LoginPage',
         data() {
             return {
-                email: '',
+                email: "",
                 password: '',
                 error: ''
             }
         },
         methods: {
+            pressedAPI(){
+                // Get the reciever endpoint from Python using fetch:
+                fetch("http://127.0.0.1:5000/", 
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                    body:JSON.stringify({subject:'login', email: this.email, password: this.password})}).then(res=>{
+                            if(res.ok){
+                                return res.json()
+                            }else{
+                                alert("something is wrong")
+                            }
+                        }).then(data=>{    
+                            // Log the response data in the console
+                            console.log(data)
+                        } 
+                        ).catch((err) => console.error(err));
+            },
             async pressed() {
                 try{
                     const auth = getAuth();
