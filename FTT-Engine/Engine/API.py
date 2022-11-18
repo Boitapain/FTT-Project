@@ -29,7 +29,8 @@ def chat():
         return "Invalid request."
 
 """
-If login is true, api returns current price &
+If login is true, the app/website sends the stock/crypto names
+to the api and the api returns current price &
 price difference for each crypto/stock.
 """
 def price_diff():
