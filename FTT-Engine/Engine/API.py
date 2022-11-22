@@ -17,7 +17,7 @@ to save to database.
 """
 @app.route('/', methods = ["GET", "POST"])
 def chat():
-    msg_received = flask.request.get_json()
+    msg_received = flask.request.get_json(force=True)
     msg_subject = msg_received['subject']
 
     if msg_subject == "register":
@@ -36,7 +36,7 @@ price difference for each crypto/stock.
 @app.route('/pricediff', methods = ["GET", "POST"])
 def price_diff():
     if login == True:
-        return Crypto_Predict.crypto_Price_Diff()
+        return Crypto_Predict.crypto_Price_Diff(force=True)
         return Stock_Predict.stock_Price_Pred()
     else:
         return "Invalid request."
@@ -48,7 +48,7 @@ return the graphs (current and prediciton)
 """
 @app.route('/stockpage', methods = ["GET", "POST"])
 def stock_page():
-    msg_received = flask.request.get_json()
+    msg_received = flask.request.get_json(force=True)
     msg_subject = msg_received['subject']
 
     if msg_subject in ("amd", "apple", "gme", "tesla", "twitter"):
@@ -64,7 +64,7 @@ return the graphs (current and prediciton)
 """
 @app.route('/cryptopage', methods = ["GET", "POST"])
 def crypto_page():
-    msg_received = flask.request.get_json()
+    msg_received = flask.request.get_json(force=True)
     msg_subject = msg_received['subject']
 
     if msg_subject in ("binance", "bitcoin", "cardano", "dogecoin", "ethereum"):
@@ -78,7 +78,7 @@ the details of the purchase to the api and it will be stored in the database.
 """
 @app.route('/purchase', methods = ["GET", "POST"])
 def purchase():
-    msg_received = flask.request.get_json()
+    msg_received = flask.request.get_json(force=True)
     msg_subject = msg_received['subject']
 
     if msg_subject == "purchase":
