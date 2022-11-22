@@ -22,7 +22,6 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS userdetails (id INT(11) NOT NULL A
                   ' password VARCHAR(32) NOT NULL,'
                   ' financial_inst VARCHAR(225))')
 
-@app.route('/register', methods = ["GET", "POST"])
 def register(msg_received):
     firstname = msg_received['firstname']
     lastname = msg_received['lastname']
@@ -30,7 +29,7 @@ def register(msg_received):
     password = msg_received['password']
     financial_inst = msg_received['financial_inst']
 
-    select_query = "SELECT * FROM users where email = " + "'" + email + "'"
+    select_query = "SELECT * FROM userdetails where email = " + "'" + email + "'"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
     if len(records) != 0:

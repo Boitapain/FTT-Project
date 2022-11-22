@@ -1,6 +1,6 @@
 import flask
 from flask_cors import CORS
-# import DetailsDB
+import DetailsDB
 # import Crypto_Predict
 # import Stock_Predict
 
@@ -42,5 +42,5 @@ if __name__ == "__main__":
  * Debugger PIN: 873-873-224
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 
- Run: python -m flask --app .\API.py run
+ Run: python -m      --app .\API.py run
 """
