@@ -49,7 +49,7 @@ def login(msg_received):
     email = msg_received['email']
     password = msg_received['password']
 
-    select_query = "SELECT first_name, last_name FROM users where email = " + "'" + email + "' and password = " + "MD5('" + password + "')"
+    select_query = "SELECT first_name, last_name FROM userdetails where email = " + "'" + email + "' and password = " + "MD5('" + password + "')"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
 
