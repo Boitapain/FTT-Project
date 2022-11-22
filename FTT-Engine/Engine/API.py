@@ -12,7 +12,7 @@ login = False
 
 """
 Chat between app/website with login/register.
-App/Website needs to send ket word "login" or "register with details
+App/Website needs to send key word "login" or "register" with details
 to save to database.
 """
 @app.route('/', methods = ["GET", "POST"])
@@ -52,7 +52,7 @@ def stock_page():
     msg_subject = msg_received['subject']
 
     if msg_subject in ("amd", "apple", "gme", "tesla", "twitter"):
-        return Stock_Predict.graph_Stock_Graph(msg_subject), Stock_Predict.graph_Stock_Predict(msg_subject)
+        return Stock_Predict.graph_Stock_Predict(msg_subject), Stock_Predict.graph_Stock_Graph(msg_subject), Stock_Predict.graph_Stock_Predict(msg_subject)
     else:
         return "Invalid request."
 
@@ -68,7 +68,7 @@ def crypto_page():
     msg_subject = msg_received['subject']
 
     if msg_subject in ("binance", "bitcoin", "cardano", "dogecoin", "ethereum"):
-        return Crypto_Predict.graph_Stock_Graph(msg_subject), Crypto_Predict.graph_Stock_Predict(msg_subject)
+        return Crypto_Predict.crypto_Price_Diff(msg_subject), Crypto_Predict.graph_Stock_Graph(msg_subject), Crypto_Predict.graph_Stock_Predict(msg_subject)
     else:
         return "Invalid request."
 

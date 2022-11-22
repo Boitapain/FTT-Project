@@ -297,7 +297,7 @@ def graph_Stock_Predict(stock):
         plt.plot(amd_g_train['Close'])
         plt.plot(amd_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        plt.show()
+        return plt.show()
 
     elif (stock == "apple"):
         plt.figure(figsize=(15, 5))
@@ -307,7 +307,7 @@ def graph_Stock_Predict(stock):
         plt.plot(apple_g_train['Close'])
         plt.plot(apple_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        plt.show()
+        return plt.show()
 
 
 
@@ -319,7 +319,7 @@ def graph_Stock_Predict(stock):
         plt.plot(gme_g_train['Close'])
         plt.plot(gme_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        plt.show()
+        return plt.show()
 
 
     elif (stock == "tesla"):
@@ -330,7 +330,7 @@ def graph_Stock_Predict(stock):
         plt.plot(tesla_g_train['Close'])
         plt.plot(tesla_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        plt.show()
+        return plt.show()
 
     elif (stock == "twitter"):
         plt.figure(figsize=(15, 5))
@@ -340,7 +340,7 @@ def graph_Stock_Predict(stock):
         plt.plot(twitter_g_train['Close'])
         plt.plot(twitter_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        plt.show()
+        return plt.show()
 
 def graph_Stock_Graph(stock):
 
@@ -350,7 +350,7 @@ def graph_Stock_Graph(stock):
         plt.plot(amddf['Close'])
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close Price')
-        plt.show()
+        return plt.show()
 
     elif (stock == "apple"):
         plt.figure(figsize=(15, 5))
@@ -358,7 +358,7 @@ def graph_Stock_Graph(stock):
         plt.plot(appledf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        plt.show()
+        return plt.show()
 
     elif (stock == "gme"):
         plt.figure(figsize=(15, 5))
@@ -366,7 +366,7 @@ def graph_Stock_Graph(stock):
         plt.plot(gmedf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        plt.show()
+        return plt.show()
 
     elif (stock == "tesla"):
         plt.figure(figsize=(15, 5))
@@ -374,7 +374,7 @@ def graph_Stock_Graph(stock):
         plt.plot(tesladf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        plt.show()
+        return plt.show()
 
     elif (stock == "twitter"):
         plt.figure(figsize=(15, 5))
@@ -382,9 +382,10 @@ def graph_Stock_Graph(stock):
         plt.plot(twitterdf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        plt.show()
+        return plt.show()
 
 
+"""
 graph_Stock_Graph("amd")
 graph_Stock_Predict("amd")
 
@@ -399,3 +400,4 @@ graph_Stock_Predict("gme")
 
 graph_Stock_Graph("tesla")
 graph_Stock_Predict("tesla")
+"""
