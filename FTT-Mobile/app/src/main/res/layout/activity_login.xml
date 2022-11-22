@@ -18,6 +18,7 @@
         android:backgroundTint="@color/colorAccent"
         android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         android:hint="Enter Username"
+        android:minHeight="48dp"
         android:singleLine="true"
         android:textColor="@color/textColorPrimary"
         android:textColorHint="@color/textColorPrimary"
@@ -25,8 +26,7 @@
         app:layout_constraintBottom_toTopOf="@+id/loginPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <EditText
         android:id="@+id/loginPassword"
@@ -38,6 +38,7 @@
         android:backgroundTint="@color/colorAccent"
         android:hint="Enter Password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:singleLine="true"
         android:textColor="@color/textColorPrimary"
         android:textColorHint="@color/textColorPrimary"
@@ -65,7 +66,7 @@
 
     <TextView
         android:id="@+id/responseTextLogin"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textAlignment="center"
@@ -73,7 +74,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
         app:layout_constraintVertical_bias="0.0" />

@@ -44,6 +44,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var mainActivityContext: Context? = null
-        var postUrl = "http://192.168.16.102:5000"
+        var postUrl = "http://127.00.00.1"
     }
 }

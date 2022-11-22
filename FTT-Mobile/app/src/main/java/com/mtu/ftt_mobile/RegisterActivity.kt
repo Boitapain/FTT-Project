@@ -24,11 +24,13 @@ class RegisterActivity : AppCompatActivity() {
         val firstNameView = findViewById<EditText>(R.id.firstName)
         val lastNameView = findViewById<EditText>(R.id.lastName)
         val passwordView = findViewById<EditText>(R.id.password)
+        val financialView = findViewById<EditText>(R.id.financialInstitution)
         val username = usernameView.text.toString().trim { it <= ' ' }
         val firstName = firstNameView.text.toString().trim { it <= ' ' }
         val lastName = lastNameView.text.toString().trim { it <= ' ' }
         val password = passwordView.text.toString().trim { it <= ' ' }
-        if (firstName.length == 0 || lastName.length == 0 || username.length == 0 || password.length == 0) {
+        val financial = financialView.text.toString().trim { it <= ' ' }
+        if (firstName.length == 0 || lastName.length == 0 || username.length == 0 || password.length == 0 || financial.length==0) {
             Toast.makeText(
                 applicationContext,
                 "Something is wrong. Please check your inputs.",
@@ -42,6 +44,7 @@ class RegisterActivity : AppCompatActivity() {
                 registrationForm.put("lastname", lastName)
                 registrationForm.put("username", username)
                 registrationForm.put("password", password)
+                registrationForm.put("financialInstitution", financial)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
