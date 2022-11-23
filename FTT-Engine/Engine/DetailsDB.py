@@ -29,6 +29,13 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS purchasedetails (purchase_id INT(1
                   ' date VARCHAR(32) NOT NULL,'
                   ' FOREIGN KEY (email) REFERENCES userdetails(email))')
 
+"""
+db_cursor.execute("SHOW TABLES")
+databaseList = db_cursor.fetchall()
+for datatbase in databaseList:
+    print(datatbase)
+"""
+
 def register(msg_received):
     firstname = msg_received['firstname']
     lastname = msg_received['lastname']
@@ -36,7 +43,7 @@ def register(msg_received):
     password = msg_received['password']
     financial_inst = msg_received['financial_inst']
 
-    select_query = "SELECT * FROM users where email = " + "'" + email + "'"
+    select_query = "SELECT * FROM userdetails where email = " + "'" + email + "'"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
     if len(records) != 0:
