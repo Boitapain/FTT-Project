@@ -40,13 +40,19 @@
                         },
                     body:JSON.stringify({subject:'login', email: this.email, password: this.password})}).then(res=>{
                             if(res.ok){
-                                return res.json()
+                                return res.text()
                             }else{
                                 alert("something is wrong")
                             }
                         }).then(data=>{    
                             // Log the response data in the console
                             console.log(data)
+                            if(data == "successful"){
+                                this.$router.replace({name: "home"});
+                            }
+                            else{
+                                alert(data);
+                            }
                         } 
                         ).catch((err) => console.error(err));
             },

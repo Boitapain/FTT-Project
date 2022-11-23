@@ -11,14 +11,19 @@ login = False
 
 @app.route('/', methods = ["GET", "POST"])
 def chat():
+    global login
+    
     msg_received = flask.request.get_json()
     msg_subject = msg_received['subject']
-
+    
     if msg_subject == "register":
         return DetailsDB.register(msg_received)
     elif msg_subject == "login":
-        return DetailsDB.login(msg_received)
-        login = True
+        result = DetailsDB.login(msg_received)
+        if (result == "successful"):
+            login = True
+        return result
+        
     else:
         return "Invalid request."
 

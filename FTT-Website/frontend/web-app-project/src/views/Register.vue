@@ -38,16 +38,23 @@
                             'Content-type': 'application/json',
                             'Accept': 'application/json'
                         },
-                    body:JSON.stringify({subject:'register', firstname:this.firstname, lastname: this.lastname, email: this.email, password: this.password, financial_inst: this.financial_inst})}).then(res=>{
-                            if(res.ok){
-                                return res.json()
-                            }else{
-                                alert("something is wrong")
-                            }
-                        }).then(data=>{    
+                    body:JSON.stringify({subject:'register', firstname:this.firstname, lastname: this.lastname, email: this.email, password: this.password, financial_inst: this.financial_inst})})
+                        .then(res=>{
+                                if(res.ok){
+                                    return res.text()
+                                }else{
+                                    alert("something is wrong")
+                                }
+                            })
+                        .then((data)=>{    
                             // Log the response data in the console
-                            document.cookie = "login=" + this.email + ";"
                             console.log(data)
+                            if(data == "successful"){
+                                this.$router.replace({name: "login"});
+                            }
+                            else{
+                                alert(data);
+                            }
                         } 
                         ).catch((err) => console.error(err));
             },
