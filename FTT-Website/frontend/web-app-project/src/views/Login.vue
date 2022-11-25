@@ -61,7 +61,7 @@
                     const auth = getAuth();
                     const val = await signInWithEmailAndPassword(auth, this.email, this.password);
                     console.log(val);
-                    this.$router.replace({name: "secret"});
+                    this.$router.replace({name: "clients"});
                 }
                 catch(e){
                     console.log(e);

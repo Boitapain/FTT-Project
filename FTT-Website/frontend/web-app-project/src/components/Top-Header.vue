@@ -1,36 +1,35 @@
 <template>
     <div>
-        <!-- Logged in
+        Logged in
         <span v-if="loggedIn">Yes</span>
         <span v-else>No</span>
         <div>
             <button @click="signOut">Sign Out</button>
-        </div> -->
+        </div>
 
     </div>
 </template>
 <script>
-    import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
     // import * as firebase from "firebase/app";
 
     export default{
         name: 'LoggedPage',
-        // created() {
-        //     onAuthStateChanged(user=>{
-        //         this.loggedIn = !!user;
-        //         if(user){
-        //             this.loggedIn = true
-        //         }
-        //         else{
-        //             this.loggedIn = false
-        //         }
-        //     })
-        // },
         created(){
-            const auth = getAuth();
-            onAuthStateChanged(auth, (user) => {
-                    this.loggedIn = !!user;
-                });
+
+                fetch("http://127.0.0.1:5000/islogin")
+                    .then((response) => response.text())
+                    .then((data) =>{
+                        console.log("test");
+                        if(data == "true"){
+                            this.loggedIn = true;
+                        }
+                        else{
+                            this.loggedIn = false;
+                        }
+                    } 
+                    ); 
+            
         },
         data(){
             return {
@@ -38,15 +37,19 @@
             }
         },
         methods: {
-            async signOut(){
-                const auth = getAuth();
-                const data = await signOut(auth).then(() => {
-                    console.log("signed out succefully!")
-                    this.$router.replace({name: "login"})
-                }).catch((error) => {
-                    console.log(error)
-                });
-                console.log(data)
+            signOut(){
+                fetch("http://127.0.0.1:5000/logout")
+                    .then((response) => response.text())
+                    .then((data) =>{
+                        if(data == "succes"){
+                            this.loggedIn = true;
+                            location.reload();
+                        }
+                        else{
+                            alert(data);
+                        }
+                    } 
+                    ); 
             }
         }
     }
