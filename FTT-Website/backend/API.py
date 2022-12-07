@@ -1,6 +1,6 @@
 import flask
 from flask_cors import CORS
-import DetailsDB
+# import DetailsDB
 # import Crypto_Predict
 # import Stock_Predict
 
