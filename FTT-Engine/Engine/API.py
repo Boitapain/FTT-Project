@@ -3,7 +3,8 @@ from flask_cors import CORS
 import DetailsDB
 import Crypto_Predict
 import Stock_Predict
-
+import train_chatbox
+import chatapp
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -56,7 +57,6 @@ def stock_page():
     else:
         return "Invalid request."
 
-
 """
 If crypto page is called, app/website will send name of crypto
 -> "binance", "bitcoin", "cardano", "dogecoin", "ethereum" to api and api will
@@ -85,6 +85,20 @@ def purchase():
         return DetailsDB.purchase(msg_received)
     else:
         return "Invalid request."
+
+"""
+If chatbot is called, the website will send the message "chatbot". The API will return
+the chatbot to the website
+"""
+@app.route('/chatbot', methods = ["GET", "POST"])
+def chatbot():
+    msg_received = flask.request.get_json(force=True)
+    msg_subject = msg_received['subject']
+
+    if msg_subject == "chatbot":
+        return chatapp.return_chatbot()
+    else:
+        return "Invalid request"
 
 app.run(host="127.0.0.1", port=5000, debug=True, threaded=True)
 

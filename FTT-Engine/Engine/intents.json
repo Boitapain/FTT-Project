@@ -1,0 +1,69 @@
+{"intents":[
+    {"tag": "greeting",
+     "patterns": ["Hi", "Hello", "How are you", "Is anyone there", "Hola", "Good day",
+                 "Hey", "Good morning", "Good evening"],
+     "responses":["Hello", "Hi there", "Good to hear from you", "Hi, How can I help"],
+      "context":[""]
+    },
+    {"tag": "goodbye",
+     "patterns":["Bye", "See you later", "Goodbye", "Nice chatting to you", "Till next time",
+                 "Enjoy your day", "Have a good day"],
+     "responses":["Enjoy your day","Have a nice day", "Have a good day"],
+     "context":[""]
+    },
+    {"tag": "thanks",
+     "patterns":["Thanks", "Thank you", "That's helpful", "Thanks for your help",
+                  "Thanks for helping me"],
+     "responses":["Happy to help", "Any time!", "My pleasure"],
+     "context":[""]
+    },
+    {"tag": "noanswer",
+     "patterns":[],
+     "responses":["Sorry, can't understand you", "Please give me more info",
+                  "Not sure I understand"],
+     "context":[""]
+    },
+    {"tag": "options",
+     "patterns": ["How you could help me?","What you can do?","What help do you provide?",
+            "How you can be helpful?","What support is offered"],
+     "responses": ["I can help with: \n 1. Getting Started \n 2. Payment Questions \n 3. Deposit/Withdrawal \n 4. Account Functions \n 5. Crypto/Stock Available "],
+        "context": [""]
+    },
+    {"tag": "started",
+     "patterns": ["How does the website work?", "How do i use the website?","Getting starterd?","How to use?",
+                 "Open an account?"],
+     "responses": ["Welcome. Tthere are 5 easy steps to get started: \n\tStep 1 -> Register Account \n\tStep 2 -> Open account for clients \n\tStep 3 -> Accept clients \n\tStep 4 -> Recommend stock/crypto for your client to invest in \n\tStep 5 -> Invest in stock/Crypto for client"],
+     "context":[""]
+    },
+    {"tag": "payment",
+     "patterns":["How do I pay for stock/crypto?", "How to pay?", "How pay?", "Payment help?"],
+     "responses":["Payment can only be done using the money deposited to the account by the client.\nBroker does not have access to the clients personal card/bank details.\nBroker can only invest in crypto/stock if the client gives access too"],
+     "context":[""]
+    },
+    {"tag":"deposit_withdrawal",
+     "patterns":["Deposit help?", "Withdrawal help?", "How do I deposit?", "How do I withdraw?"],
+     "responses":["Broker does not have access to withdraw/deposit money for the client. Only the clients can deposit/withdraw towards the account"],
+     "context":[""]
+    },
+    {"tag": "account_function",
+     "patterns":["What can my account do?","Account function?", "Account help?","Account?"],
+     "responses":["Guide to Account Fucntions:\nEdit user details:\n\tUser can edit their details so they are up to date.\nReset password\n\tUser canc hange their password.\nClient details\n\tUser can view the details of their clients\nClient transaction history\n\tUser can view their clients transaction history"],
+     "context":[""]
+    },
+    {"tag": "available",
+     "patterns":["What stock are available?", "What crypto ar available?","Strock to buy?","Crypto to buy?","What stock can you invest in?","What crypto can you invest in?",
+                 "What stock can you invest in?","Stock invest?","crypto invest?","stock crypto invest?"],
+     "responses":["Stock available to invest in:\n\t-AMD\n\t-Apple\n\t-Gamestop\n\t-Tesla\n\t-Twitter\nCrypto available to invest in:\n\tBinance Coin\n\tBitcoin\n\tCardano\n\tDogecoin\n\tEthereum"],
+     "context":[""]
+    },
+    {"tag": "AI",
+     "patterns":["AI help?", "How to use AI?", "How does AI work"],
+     "responses":["To get started with the AI predictions, first head on to (linkToPrediction) to chose a set of stocks and crypto for the prediction. You can then access the prediction at any time from the AI menu on the header bar."],
+     "context":[""]
+    },
+    {"tag": "report",
+     "patterns":["Report help?", "How do I make a report", "How do i create a finincial report?", "What is a report?"],
+     "responses":["A finincial report is a written record of the transactions the broker has made for the client. A financial report can be created under (link:Financial Report)"],
+     "context":[]
+    }]
+}
