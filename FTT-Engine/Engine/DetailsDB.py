@@ -29,6 +29,8 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS purchasedetails (purchase_id INT(1
                   ' date VARCHAR(32) NOT NULL,'
                   ' FOREIGN KEY (email) REFERENCES userdetails(email))')
 
+
+
 """
 db_cursor.execute("SHOW TABLES")
 databaseList = db_cursor.fetchall()
@@ -37,14 +39,16 @@ for datatbase in databaseList:
 """
 
 def register(msg_received):
+    db_cursor.execute("USE details_db")
+
     firstname = msg_received['firstname']
     lastname = msg_received['lastname']
     email = msg_received['email']
     password = msg_received['password']
     financial_inst = msg_received['financial_inst']
 
-    select_query = "SELECT * FROM userdetails where email = " + "'" + email + "'"
-    db_cursor.execute(select_query)
+    select_query = "SELECT * FROM userdetails WHERE email = (%s)"
+    db_cursor.execute(select_query, email)
     records = db_cursor.fetchall()
     if len(records) != 0:
         return "Another user used the email. Please chose another email."
@@ -60,11 +64,14 @@ def register(msg_received):
         return "failure"
 
 def login(msg_received):
+    db_cursor.execute("USE details_db")
+
     email = msg_received['email']
     password = msg_received['password']
 
-    select_query = "SELECT first_name, last_name FROM users where email = ", "'", email, "' and password = ", "MD5('", password, "')"
-    db_cursor.execute(select_query)
+    select_query = "SELECT first_name, last_name FROM userdetails where email = (%s) and password = MD5(%s)"
+    insert_values = (email, password)
+    db_cursor.execute(select_query, insert_values)
     records = db_cursor.fetchall()
 
     if len(records) == 0:

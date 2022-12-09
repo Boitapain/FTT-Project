@@ -12,20 +12,36 @@ CORS(app)
 login = False
 
 """
-Chat between app/website with login/register.
-App/Website needs to send key word "login" or "register" with details
-to save to database.
+Open Page with group names
 """
-@app.route('/', methods = ["GET", "POST"])
-def chat():
-    msg_received = flask.request.get_json(force=True)
-    msg_subject = msg_received['subject']
+@app.route('/')
+def startup():
+    return "Group17 Project\n\nDavid Lee\nEthan Ponce\nVincent Bullion\nJérémie Blanc"
 
-    if msg_subject == "register":
-        return DetailsDB.register(msg_received)
-    elif msg_subject == "login":
+"""
+If register a, the app/website sends the stock/crypto names
+to the api and the api returns current price &
+price difference for each crypto/stock.
+"""
+
+@app.route('/register', methods = ["POST"])
+def register():
+    msg_received = flask.request.get_json(force=True)
+    msg_subject = msg_received
+
+    if msg_subject != None:
+        DetailsDB.register(msg_received)
+        return "registered"
+    else:
+        return "Invalid request."
+
+@app.route('/login', methods = ["GET"])
+def login():
+    msg_received = flask.request.get_json(force=True)
+    msg_subject = msg_received
+
+    if msg_subject != None:
         return DetailsDB.login(msg_received)
-        login = True
     else:
         return "Invalid request."
 
@@ -100,17 +116,6 @@ def chatbot():
     else:
         return "Invalid request"
 
-app.run(host="127.0.0.1", port=5000, debug=True, threaded=True)
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=5050, debug=True, threaded=True)
 
-"""
- * Serving Flask app 'API' (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 873-873-224
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
- Run: python -m flask --app .\API.py run
-"""
