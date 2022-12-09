@@ -17,7 +17,7 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/colorAccent"
         android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        android:hint="Enter Username"
+        android:hint="Enter Email"
         android:minHeight="48dp"
         android:singleLine="true"
         android:textColor="@color/textColorPrimary"

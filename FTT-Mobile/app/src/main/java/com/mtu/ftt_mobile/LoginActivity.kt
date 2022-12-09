@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         val passwordView = findViewById<EditText>(R.id.loginPassword)
         val username = usernameView.text.toString().trim { it <= ' ' }
         val password = passwordView.text.toString().trim { it <= ' ' }
-        if (username.length == 0 || password.length == 0) {
+        if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(
                 applicationContext,
                 "Something is wrong. Please check your inputs.",
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         val loginForm = JSONObject()
         try {
             loginForm.put("subject", "login")
-            loginForm.put("username", username)
+            loginForm.put("email", username)
             loginForm.put("password", password)
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                             "LOGIN",
                             "Response from the server : $loginResponseString"
                         )
-                        if (loginResponseString == "success") {
+                        if (loginResponseString == "successful") {
                             Log.d("LOGIN", "Successful Login")
                             finish() //finishing activity and return to the calling activity.
                         } else if (loginResponseString == "failure") {

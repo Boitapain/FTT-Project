@@ -40,11 +40,12 @@ class RegisterActivity : AppCompatActivity() {
             val registrationForm = JSONObject()
             try {
                 registrationForm.put("subject", "register")
+                registrationForm.put("table", "clients")
                 registrationForm.put("firstname", firstName)
                 registrationForm.put("lastname", lastName)
-                registrationForm.put("username", username)
+                registrationForm.put("email", username)
                 registrationForm.put("password", password)
-                registrationForm.put("financialInstitution", financial)
+                registrationForm.put("financial_inst", financial)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -79,15 +80,15 @@ class RegisterActivity : AppCompatActivity() {
                 try {
                     val responseString = response.body()!!.string().trim { it <= ' ' }
                     runOnUiThread {
-                        if (responseString == "success") {
+                        if (responseString == "successful") {
                             responseTextRegister.text = "Registration completed successfully."
                             finish()
-                        } else if (responseString == "username") {
-                            responseTextRegister.text =
-                                "Username already exists. Please chose another username."
-                        } else {
+                        } else if (responseString == "failure") {
                             responseTextRegister.text =
                                 "Something went wrong. Please try again later."
+                        } else {
+                            responseTextRegister.text =responseString
+
                         }
                     }
                 } catch (e: Exception) {

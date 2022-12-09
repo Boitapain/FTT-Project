@@ -27,7 +27,9 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS clients (id INT(11) NOT NULL AUTO_
                   ' first_name VARCHAR(255) NOT NULL,'
                   ' last_name VARCHAR(255) NOT NULL,'
                   ' email VARCHAR(255) NOT NULL UNIQUE,'
-                  ' broker VARCHAR(225) NOT NULL)')
+                  ' password VARCHAR(32) NOT NULL,'
+                  ' financial_inst VARCHAR(225),'
+                  ' broker VARCHAR(225))')
 
 db_cursor.execute('CREATE TABLE IF NOT EXISTS purchasedetails (purchase_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                   ' email VARCHAR(255) NOT NULL,'
@@ -70,10 +72,10 @@ def register(msg_received):
         print("Error while inserting the new record :", repr(e))
         return "failure"
 
+
 def login(msg_received):
     email = msg_received['email']
     password = msg_received['password']
-
     select_query = "SELECT first_name, last_name FROM userdetails where email = " + "'" + email + "' and password = " + "MD5('" + password + "')"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
