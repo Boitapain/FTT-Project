@@ -53,7 +53,8 @@ def chat():
         if (result == "successful"):
             login = True
         return result
-        
+    elif msg_subject == "get_broker":
+        return DetailsDB.add_broker(msg_received)
     else:
         return "Invalid request."
     

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FTT-Mobile</string>
+    <string name="broker_premium_explanation">Lost in the investment world?
+        Want a running start in cryptocurrency and assets?\n\n
+        Call on our specialists to help you! With our Broker Premium experience, you benefit from a personal broker to help and guide you in your investments.\n
+        Receive advice for future investments based on its expertise and our market prediction technology.\n\n
+        Enter the world of investment accompanied by experts in the field.
+    </string>
+    <string name="dismiss">Dismiss</string>
 </resources>

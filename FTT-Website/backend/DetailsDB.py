@@ -50,19 +50,20 @@ def getClientsList(msg_received):
         return "No clients for this broker"
 
 def register(msg_received):
+    table = msg_received['table']
     firstname = msg_received['firstname']
     lastname = msg_received['lastname']
     email = msg_received['email']
     password = msg_received['password']
     financial_inst = msg_received['financial_inst']
 
-    select_query = "SELECT * FROM userdetails where email = " + "'" + email + "'"
+    select_query = "SELECT * FROM "+ table +" where email = " + "'" + email + "'"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
     if len(records) != 0:
         return "Another user used the email. Please chose another email."
 
-    insert_query = "INSERT INTO userdetails (first_name, last_name, email, password, financial_inst) VALUES (%s, %s, %s, MD5(%s), %s)"
+    insert_query = "INSERT INTO "+ table +" (first_name, last_name, email, password, financial_inst) VALUES (%s, %s, %s, MD5(%s), %s)"
     insert_values = (firstname, lastname, email, password, financial_inst)
     try:
         db_cursor.execute(insert_query, insert_values)
@@ -74,9 +75,10 @@ def register(msg_received):
 
 
 def login(msg_received):
+    table = msg_received['table']
     email = msg_received['email']
     password = msg_received['password']
-    select_query = "SELECT first_name, last_name FROM userdetails where email = " + "'" + email + "' and password = " + "MD5('" + password + "')"
+    select_query = "SELECT first_name, last_name FROM "+ table +" where email = " + "'" + email + "' and password = " + "MD5('" + password + "')"
     db_cursor.execute(select_query)
     records = db_cursor.fetchall()
 
