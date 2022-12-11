@@ -257,35 +257,41 @@ ethereum_g_valid = ethereum_g_data[ethereum_training_data_len:]
 ethereum_g_valid['predictions'] = ethereum_predictions
 
 
-def crypto_Price_Diff():
-    binanceCoinData['Date'] = pd.to_datetime(binanceCoinData.Date, infer_datetime_format=True)
-    #print(df.head())
-    binanceCoinData.sort_values(by="Date", ascending=False, inplace=True)
-    print(binanceCoinData[["Open","Close"]])
-    #Binance Coin  302.195584  320.934802
-    binanceDifference =binanceCoinData[0:1].Close.values -binanceCoinData[0:1].Open.values
-    return(binanceCoinData[0:1].Close.values, " ", binanceDifference)
-    #[18.7392174]
+def crypto_Price_Diff(crypto):
+    crypto_name = crypto['name']
+    if crypto_name == "binance":
+        binanceCoinData['Date'] = pd.to_datetime(binanceCoinData.Date, infer_datetime_format=True)
+        #print(df.head())
+        binanceCoinData.sort_values(by="Date", ascending=False, inplace=True)
+        print(binanceCoinData[["Open","Close"]])
+        #Binance Coin  302.195584  320.934802
+        binanceDifference =binanceCoinData[0:1].Close.values -binanceCoinData[0:1].Open.values
+        return(binanceCoinData[0:1].Close.values, " ", binanceDifference)
+        #[18.7392174]
 
-    bitcoinData['Date'] = pd.to_datetime(bitcoinData.Date, infer_datetime_format=True)
-    bitcoinData.sort_values(by="Date", ascending=False, inplace=True)
-    bitcoinDifference =bitcoinData[0:1].Close.values -bitcoinData[0:1].Open.values
-    return(bitcoinData[0:1].Close.values, " ", bitcoinDifference)
+    if crypto_name == "bitcoin":
+        bitcoinData['Date'] = pd.to_datetime(bitcoinData.Date, infer_datetime_format=True)
+        bitcoinData.sort_values(by="Date", ascending=False, inplace=True)
+        bitcoinDifference =bitcoinData[0:1].Close.values -bitcoinData[0:1].Open.values
+        return(bitcoinData[0:1].Close.values, " ", bitcoinDifference)
 
-    cardanoData['Date'] = pd.to_datetime(cardanoData.Date, infer_datetime_format=True)
-    cardanoData.sort_values(by="Date", ascending=False, inplace=True)
-    cardanoDifference =cardanoData[0:1].Close.values -cardanoData[0:1].Open.values
-    return(cardanoData[0:1].Close.values, " ", cardanoDifference)
+    if crypto_name == "cardano":
+        cardanoData['Date'] = pd.to_datetime(cardanoData.Date, infer_datetime_format=True)
+        cardanoData.sort_values(by="Date", ascending=False, inplace=True)
+        cardanoDifference =cardanoData[0:1].Close.values -cardanoData[0:1].Open.values
+        return(cardanoData[0:1].Close.values, " ", cardanoDifference)
 
-    dogecoinData['Date'] = pd.to_datetime(dogecoinData.Date, infer_datetime_format=True)
-    dogecoinData.sort_values(by="Date", ascending=False, inplace=True)
-    dogecoinDifference =dogecoinData[0:1].Close.values -dogecoinData[0:1].Open.values
-    return(dogecoinData[0:1].Close.values, " ", dogecoinDifference)
+    if crypto_name == "dogecoin":
+        dogecoinData['Date'] = pd.to_datetime(dogecoinData.Date, infer_datetime_format=True)
+        dogecoinData.sort_values(by="Date", ascending=False, inplace=True)
+        dogecoinDifference =dogecoinData[0:1].Close.values -dogecoinData[0:1].Open.values
+        return(dogecoinData[0:1].Close.values, " ", dogecoinDifference)
 
-    ethereumData['Date'] = pd.to_datetime(ethereumData.Date, infer_datetime_format=True)
-    ethereumData.sort_values(by="Date", ascending=False, inplace=True)
-    ethereumDifference =ethereumData[0:1].Close.values -ethereumData[0:1].Open.values
-    return(ethereumData[0:1].Close.values, " ", ethereumDifference)
+    if crypto_name == "ethereum":
+        ethereumData['Date'] = pd.to_datetime(ethereumData.Date, infer_datetime_format=True)
+        ethereumData.sort_values(by="Date", ascending=False, inplace=True)
+        ethereumDifference =ethereumData[0:1].Close.values -ethereumData[0:1].Open.values
+        return(ethereumData[0:1].Close.values, " ", ethereumDifference)
 
 
 def graph_Stock_Predict(stock):
@@ -387,7 +393,7 @@ def graph_Stock_Graph(stock):
 
 
 
-"""
+
 graph_Stock_Graph("binance")
 graph_Stock_Predict("binance")
 
@@ -402,4 +408,4 @@ graph_Stock_Predict("dogecoin")
 
 graph_Stock_Graph("ethereum")
 graph_Stock_Predict("ethereum")
-"""
+

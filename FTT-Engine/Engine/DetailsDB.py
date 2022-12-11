@@ -3,7 +3,7 @@ import sys
 import json
 
 try:
-    detailsdb = pymysql.connect(host='127.0.0.1',port=3306, user='group17', passwd='group17', db="details_db")
+    detailsdb = pymysql.connect(host='sql8.freesqldatabase.com',port=3306, user='sql8583755', passwd='AuCcUiq1hL', db="sql8583755")
 except:
     sys.exit("Error connecting to the host")
 
@@ -11,7 +11,7 @@ except:
 db_cursor = detailsdb.cursor()
 
 try:
-    db_cursor.execute("CREATE DATABASE IF NOT EXISTS details_db")
+    db_cursor.execute("CREATE DATABASE IF NOT EXISTS sql8583755")
 except pymysql.DatabaseError:
     sys.exit("Error creating the database")
 
@@ -21,6 +21,12 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS userdetails (id INT(11) NOT NULL A
                   ' email VARCHAR(255) NOT NULL UNIQUE,'
                   ' password VARCHAR(32) NOT NULL,'
                   ' financial_inst VARCHAR(225))')
+
+db_cursor.execute('CREATE TABLE IF NOT EXISTS clients (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                  ' first_name VARCHAR(255) NOT NULL,'
+                  ' last_name VARCHAR(255) NOT NULL,'
+                  ' email VARCHAR(255) NOT NULL UNIQUE,'
+                  ' broker VARCHAR(225) NOT NULL)')
 
 db_cursor.execute('CREATE TABLE IF NOT EXISTS purchasedetails (purchase_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                   ' email VARCHAR(255) NOT NULL,'
@@ -39,7 +45,7 @@ for datatbase in databaseList:
 """
 
 def register(msg_received):
-    db_cursor.execute("USE details_db")
+    db_cursor.execute("USE sql8583755")
 
     firstname = msg_received['firstname']
     lastname = msg_received['lastname']
@@ -64,7 +70,7 @@ def register(msg_received):
         return "failure"
 
 def login(msg_received):
-    db_cursor.execute("USE details_db")
+    db_cursor.execute("USE sql8583755")
 
     email = msg_received['email']
     password = msg_received['password']

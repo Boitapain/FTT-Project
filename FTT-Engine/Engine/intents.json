@@ -72,7 +72,7 @@
                 "suppott","suppoft","suppogt","suppoet","suppodt","suppprt","supplrt","suppirt","suppkrt","suoport","sulport",
                 "suoport","sulport","sipport","sjpport","skpport","sypport","shpport","dupport","xupport","cupport","aupport",
                 "qupport","wupport","eupport","zupport","supportt","supporrt","suppoort","suppport","suppport","suupport","ssupport"],
-     "responses": ["I can help with: \n 1. Getting Started \n 2. Payment Questions \n 3. Deposit/Withdrawal \n 4. Account Functions \n 5. Crypto/Stock Available "],
+     "responses": ["I can help with: \n 1. Getting Started \n 2. Payment Questions \n 3. Deposit/Withdrawal \n 4. Account Functions \n 5. Crypto/Stock Available \n 6. AI Help \n 7. Financial Report Help"],
      "context": [""]
     },
     {"tag": "started",
@@ -87,7 +87,7 @@
                  "wfbsite","wwbsite","wsbsite","websiye","websige","websihe","websire","websife","websote","webskte","webslte","websute","websjte","webdite","webxite","webcite","webaite",
                  "webqite","webwite","webeite","webzite","wensite","wevsite","wefsite","wegsite","wehsite","wrbsite","wdbsite","wfbsite","wwbsite","wsbsite","eebsite","sebsite","debsite",
                  "qebsite","aebsite"],
-     "responses": ["Welcome. Tthere are 5 easy steps to get started: \n\tStep 1 -> Register Account \n\tStep 2 -> Open account for clients \n\tStep 3 -> Accept clients \n\tStep 4 -> Recommend stock/crypto for your client to invest in \n\tStep 5 -> Invest in stock/Crypto for client"],
+     "responses": ["Welcome. There are 5 easy steps to get started: \n\tStep 1 -> Register Account \n\tStep 2 -> Open account for clients \n\tStep 3 -> Accept clients \n\tStep 4 -> Recommend stock/crypto for your client to invest in \n\tStep 5 -> Invest in stock/Crypto for client"],
      "context":[""]
     },
     {"tag": "payment",
@@ -110,7 +110,7 @@
                 "Withdrae","Withdras","Withdrad","Withdraq","Withdraa","Withdrsw","Withdrzw","Withdrxw","Withdrqw","Withdrww","Withdtaw","Withdfaw","Withdgaw","Withdeaw","Withddaw","Withfraw",
                 "Withcraw","Withvraw","Withsraw","Withwraw","Witheraw","Withrraw","Withxraw","Witjdraw","Witndraw","Witmdraw","Witgdraw","Wittdraw","Witydraw","Witudraw","Witbdraw","Wiyhdraw","Wighdraw","Wihhdraw",
                 "Wirhdraw","Wifhdraw","Wothdraw","Wkthdraw","Wlthdraw","Wuthdraw","Wjthdraw","Deposiy","Deposig","Deposih","Deposir","Deposif","Deposot","Deposkt","Deposlt","Deposut",
-                "Deposjt","Depodit","Depoxit","Depocit","Depoait","Depoqit","Depowit","Depoeit","Depozit","Deppsit","Deplsit","Depisit","Depksit","Deoosit",                "Delosit","Drposit",
+                "Deposjt","Depodit","Depoxit","Depocit","Depoait","Depoqit","Depowit","Depoeit","Depozit","Deppsit","Deplsit","Depisit","Depksit","Deoosit","Delosit","Drposit",
                 "Ddposit","Dfposit","Dwposit","Dsposit"],
      "responses":["Broker does not have access to withdraw/deposit money for the client. Only the clients can deposit/withdraw towards the account"],
      "context":[""]
@@ -126,7 +126,7 @@
                 "Funstion","Fundtion","Funftion","Fumction","Fubction","Fugction","Fuhction","Fujction","Finction","Fjnction","Fknction","Fynction","Fhnction","Accouny","Accoung","Accounh",
                 "Accounr","Accounf","Accoumt","Accoubt","Accougt","Accouht","Accoujt","Accoint","Accojnt","Accoknt","Accoynt","Accohnt","Accpunt","Acclunt","Acciunt","Acckunt","Avcount","Axcount",
                 "Ascount","Adcount","Afcount","Avcount","Axcount","Ascount","Adcount","Afcount"],
-     "responses":["Guide to Account Fucntions:\nEdit user details:\n\tUser can edit their details so they are up to date.\nReset password\n\tUser canc hange their password.\nClient details\n\tUser can view the details of their clients\nClient transaction history\n\tUser can view their clients transaction history"],
+     "responses":["Guide to Account Fucntions:\nEdit user details:\n\tUser can edit their details so they are up to date.\nReset password\n\tUser can change their password.\nClient details\n\tUser can view the details of their clients\nClient transaction history\n\tUser can view their clients transaction history"],
      "context":[""]
     },
     {"tag": "available",
@@ -147,7 +147,7 @@
     },
     {"tag": "AI",
      "patterns":["AI help?", "How to use AI?", "How does AI work", "AII", "AAI"],
-     "responses":["To get started with the AI predictions, first head on to (linkToPrediction) to chose a set of stocks and crypto for the prediction. You can then access the prediction at any time from the AI menu on the header bar."],
+     "responses":["To get started with the AI predictions, first head on to (link:Prediction) to chose a set of stocks and crypto for the prediction. You can then access the prediction at any time from the AI menu on the header bar."],
      "context":[""]
     },
     {"tag": "report",

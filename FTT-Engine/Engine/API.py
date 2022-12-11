@@ -8,7 +8,7 @@ import chatapp
 
 app = flask.Flask(__name__)
 CORS(app)
-
+global login
 login = False
 
 """
@@ -38,10 +38,11 @@ def register():
 @app.route('/login', methods = ["GET"])
 def login():
     msg_received = flask.request.get_json(force=True)
-    msg_subject = msg_received
+    msg_subject = msg_received["subject"]
 
     if msg_subject != None:
         return DetailsDB.login(msg_received)
+        login = True
     else:
         return "Invalid request."
 
@@ -52,9 +53,13 @@ price difference for each crypto/stock.
 """
 @app.route('/pricediff', methods = ["GET", "POST"])
 def price_diff():
+    msg_received = flask.request.get_json(force=True)
+    msg_subject = msg_received["subject"]
     if login == True:
-        return Crypto_Predict.crypto_Price_Diff(force=True)
-        return Stock_Predict.stock_Price_Pred()
+        if msg_subject == "crypto":
+            return Crypto_Predict.crypto_Price_Diff(msg_received)
+        elif msg_subject == "stock":
+            return Stock_Predict.stock_Price_Pred(msg_received)
     else:
         return "Invalid request."
 
