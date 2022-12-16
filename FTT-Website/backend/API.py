@@ -65,10 +65,15 @@ price difference for each crypto/stock.
 
 @app.route('/pricediff', methods = ["GET", "POST"])
 def price_diff():
-    global login
+    msg_received = flask.request.get_json(force=True)
+    msg_subject = msg_received["subject"]
     if login == True:
-        return Crypto_Predict.crypto_Price_Diff()
-        return Stock_Predict.stock_Price_Pred()
+        if msg_subject == "crypto":
+            return Crypto_Predict.crypto_Price_Diff(msg_received)
+        elif msg_subject == "stock":
+            return Stock_Predict.stock_Price_Pred(msg_received)
+    else:
+        return "Invalid request."
 
 """
 If stock page is called, app/website will send name of stock
@@ -115,6 +120,21 @@ def purchase():
         return DetailsDB.purchase(msg_received)
     else:
         return "Invalid request."
+
+"""
+If chatbot is called, the website will send the message "chatbot". The API will return
+the chatbot to the website
+"""
+@app.route('/chatbot', methods = ["GET", "POST"])
+def chatbot():
+    msg_received = flask.request.get_json(force=True)
+    msg_subject = msg_received['subject']
+
+    if msg_subject == "chatbot":
+        return chatapp.return_chatbot()
+    else:
+        return "Invalid request"
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True, threaded=True)
