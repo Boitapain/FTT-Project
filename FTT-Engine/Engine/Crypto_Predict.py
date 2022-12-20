@@ -266,7 +266,7 @@ def crypto_Price_Diff(crypto):
         print(binanceCoinData[["Open","Close"]])
         #Binance Coin  302.195584  320.934802
         binanceDifference =binanceCoinData[0:1].Close.values -binanceCoinData[0:1].Open.values
-        return(binanceCoinData[0:1].Close.values, " ", binanceDifference)
+        return (binanceCoinData[0:1].Close.values, " ", binanceDifference)
         #[18.7392174]
 
     if crypto_name == "bitcoin":
@@ -394,18 +394,18 @@ def graph_Stock_Graph(stock):
 
 
 
-graph_Stock_Graph("binance")
-graph_Stock_Predict("binance")
+#graph_Stock_Graph("binance")
+#graph_Stock_Predict("binance")
 
-graph_Stock_Graph("bitcoin")
-graph_Stock_Predict("bitcoin")
+#graph_Stock_Graph("bitcoin")
+#graph_Stock_Predict("bitcoin")
 
-graph_Stock_Graph("cardano")
-graph_Stock_Predict("cardano")
+#graph_Stock_Graph("cardano")
+#graph_Stock_Predict("cardano")
 
-graph_Stock_Graph("dogecoin")
-graph_Stock_Predict("dogecoin")
+#graph_Stock_Graph("dogecoin")
+#graph_Stock_Predict("dogecoin")
 
-graph_Stock_Graph("ethereum")
-graph_Stock_Predict("ethereum")
+#graph_Stock_Graph("ethereum")
+#graph_Stock_Predict("ethereum")
 
