@@ -133,6 +133,15 @@ def getClientList():
     else:
         return "not connected"
 
+@app.route('/logout')
+def logout():
+    global login
+    login = False
+    if(login == False):
+        return "succes"
+    else:
+        return "something went wrong"
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5050, debug=True, threaded=True, use_reloader=False)
