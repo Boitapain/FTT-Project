@@ -1,3 +1,4 @@
+import flask
 import numpy as np
 import pandas as pd
 import math
@@ -6,6 +7,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
+from flask import jsonify
 
 
 #Crypto Datasets and Dataframes
@@ -258,154 +260,176 @@ ethereum_g_valid['predictions'] = ethereum_predictions
 
 
 def crypto_Price_Diff(crypto):
-    crypto_name = crypto['name']
-    if crypto_name == "binance":
+    crypto = crypto["crypto"]
+    result = {"binance": {"close": "",
+                          "difference": ""},
+              "bitcoin": {"close": "",
+                          "difference": ""},
+              "cardano": {"close": "",
+                          "difference": ""},
+              "dogecoin": {"close": "",
+                           "difference": ""},
+              "ethereum": {"close": "",
+                           "difference": ""}
+              }
+
+    if "binance" in crypto:
         binanceCoinData['Date'] = pd.to_datetime(binanceCoinData.Date, infer_datetime_format=True)
         #print(df.head())
         binanceCoinData.sort_values(by="Date", ascending=False, inplace=True)
-        print(binanceCoinData[["Open","Close"]])
+        #print(binanceCoinData[["Open","Close"]])
         #Binance Coin  302.195584  320.934802
         binanceDifference =binanceCoinData[0:1].Close.values -binanceCoinData[0:1].Open.values
-        return (binanceCoinData[0:1].Close.values, " ", binanceDifference)
-        #[18.7392174]
+        result["binance"]["close"] = str(binanceCoinData[0:1].Close.values)
+        result["binance"]["difference"] = str(binanceDifference)
 
-    if crypto_name == "bitcoin":
+    if "bitcoin" in crypto:
         bitcoinData['Date'] = pd.to_datetime(bitcoinData.Date, infer_datetime_format=True)
         bitcoinData.sort_values(by="Date", ascending=False, inplace=True)
         bitcoinDifference =bitcoinData[0:1].Close.values -bitcoinData[0:1].Open.values
-        return(bitcoinData[0:1].Close.values, " ", bitcoinDifference)
+        result["bitcoin"]["close"] = str(bitcoinData[0:1].Close.values)
+        result["bitcoin"]["difference"] = str(bitcoinDifference)
 
-    if crypto_name == "cardano":
+    if "cardano" in crypto:
         cardanoData['Date'] = pd.to_datetime(cardanoData.Date, infer_datetime_format=True)
         cardanoData.sort_values(by="Date", ascending=False, inplace=True)
         cardanoDifference =cardanoData[0:1].Close.values -cardanoData[0:1].Open.values
-        return(cardanoData[0:1].Close.values, " ", cardanoDifference)
+        result["cardano"]["close"] = str(cardanoData[0:1].Close.values)
+        result["cardano"]["difference"] = str(cardanoDifference)
 
-    if crypto_name == "dogecoin":
+    if "dogecoin" in crypto:
         dogecoinData['Date'] = pd.to_datetime(dogecoinData.Date, infer_datetime_format=True)
         dogecoinData.sort_values(by="Date", ascending=False, inplace=True)
         dogecoinDifference =dogecoinData[0:1].Close.values -dogecoinData[0:1].Open.values
-        return(dogecoinData[0:1].Close.values, " ", dogecoinDifference)
+        result["dogecoin"]["close"] = str(dogecoinData[0:1].Close.values)
+        result["dogecoin"]["difference"] = str(dogecoinDifference)
 
-    if crypto_name == "ethereum":
-        ethereumData['Date'] = pd.to_datetime(ethereumData.Date, infer_datetime_format=True)
+    if "ethereum" in crypto:
+        ethereumData['Date'] = pd.to_datetime(ethereumData.Date, format='%d/%m/%Y', infer_datetime_format=True)
         ethereumData.sort_values(by="Date", ascending=False, inplace=True)
         ethereumDifference =ethereumData[0:1].Close.values -ethereumData[0:1].Open.values
-        return(ethereumData[0:1].Close.values, " ", ethereumDifference)
+        result["ethereum"]["close"] = str(ethereumData[0:1].Close.values)
+        result["ethereum"]["difference"] = str(ethereumDifference)
 
+    for crypto_count, values in result.items():
+        for key, value in values.items():
+            values[key] = value[1:-1]
+    return result
 
-def graph_Stock_Predict(stock):
+def graph_crypto_Predict(crypto):
+    crypto = crypto["crypto"]
 
-    if (stock == "binance"):
-        plt.figure(figsize=(15, 5))
+    if "binance" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Binance Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(binanceCoin_g_train['Close'])
         plt.plot(binanceCoin_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/binance_predict.png')
+        return 'static/binance_predict.png'
 
-    elif (stock == "bitcoin"):
-        plt.figure(figsize=(15, 5))
+    if "bitcoin" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Bitcoin Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(bitcoin_g_train['Close'])
         plt.plot(bitcoin_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/bitcoin_predict.png')
+        return 'static/bitcoin_predict.png'
 
 
-
-    elif (stock == "cardano"):
-        plt.figure(figsize=(15, 5))
+    if "cardano" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Cardano Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(cardano_g_train['Close'])
         plt.plot(cardano_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/cardano_predict.png')
+        return 'static/cardano_predict.png'
 
-
-    elif (stock == "dogecoin"):
-        plt.figure(figsize=(15, 5))
+    if "dogecoin" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Dogecoin Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(dogecoin_g_train['Close'])
         plt.plot(dogecoin_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/dogecoin_predict.png')
+        return 'static/dogecoin_predict.png'
 
-    elif (stock == "Ethereum"):
-        plt.figure(figsize=(15, 5))
+    if "ethereum" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Ethereum Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(ethereum_g_train['Close'])
         plt.plot(ethereum_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/ethereum_predict.png')
+        return 'static/ethereum_predict.png'
     
-def graph_Stock_Graph(stock):
+def graph_crypto_Graph(crypto):
+    crypto = crypto["crypto"]
 
-    if (stock == "binance"):
-        plt.figure(figsize=(15, 5))
+    if "binance" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Binance Close History")
         plt.plot(binanceCoindf['Close'])
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close Price')
-        return plt.show()
+        fig.savefig('static/binance.png')
+        return 'static/binance.png'
 
-    elif (stock == "bitcoin"):
-        plt.figure(figsize=(15, 5))
+    if "bitcoin" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Bitcoin Close History")
         plt.plot(bitcoindf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/bitcoin.png')
+        return 'static/bitcoin.png'
 
-    elif (stock == "cardano"):
-        plt.figure(figsize=(15, 5))
+    if "cardano" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Cardano Close History")
         plt.plot(cardanodf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/cardano.png')
+        return 'static/cardano.png'
 
-    elif (stock == "dogecoin"):
-        plt.figure(figsize=(15, 5))
+    if "dogecoin" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Dogecoin Close History")
         plt.plot(dogecoindf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/dogecoin.png')
+        return 'static/dogecoin.png'
 
-    elif (stock == "ethereum"):
-        plt.figure(figsize=(15, 5))
+    if "ethereum" in crypto:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Ethereum Close History")
         plt.plot(ethereumdf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/ethereum.png')
+        return 'static/ethereum.png'
+
+crypto = {"crypto":["bitcoin","cardano","ethereum","binance"]}
+graph = {"crypto":["bitcoin"]}
+#print(crypto_Price_Diff(crypto))
+#{'binance': {'close': '320.9348018', 'difference': '18.7392174'}, 'bitcoin': {'close': '34235.19345', 'difference': '511.68379'}, 'cardano': {'close': '1.48022006', 'difference': '0.04249876'}, 'dogecoin': {'close': '', 'difference': ''}, 'ethereum': {'close': '3492.573242', 'difference': '-53.904541'}}
 
 
+graph_crypto_Graph(graph)
+graph_crypto_Predict(graph)
 
-
-#graph_Stock_Graph("binance")
-#graph_Stock_Predict("binance")
-
-#graph_Stock_Graph("bitcoin")
-#graph_Stock_Predict("bitcoin")
-
-#graph_Stock_Graph("cardano")
-#graph_Stock_Predict("cardano")
-
-#graph_Stock_Graph("dogecoin")
-#graph_Stock_Predict("dogecoin")
-
-#graph_Stock_Graph("ethereum")
-#graph_Stock_Predict("ethereum")
 

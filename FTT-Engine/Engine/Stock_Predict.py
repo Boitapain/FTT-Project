@@ -250,154 +250,180 @@ twitter_g_valid = twitter_g_data[twitter_training_data_len:]
 twitter_g_valid['predictions'] = twitter_predictions
 
 def stock_Price_Pred(stock):
+    stock = stock["stock"]
+    result = {"amd":     {"close": "",
+                          "difference": ""},
+              "apple":   {"close": "",
+                          "difference": ""},
+              "gme":     {"close": "",
+                          "difference": ""},
+              "tesla":   {"close": "",
+                          "difference": ""},
+              "twitter": {"close": "",
+                          "difference": ""}
+              }
 
-    if (stock == "amd"):
+    if "amd" in stock:
         amd_data['Date'] = pd.to_datetime(amd_data.Date, infer_datetime_format=True)
         amd_data.sort_values(by="Date", ascending=False, inplace=True)
         print(amd_data[["Open", "Close"]])
         amdDifference = amd_data[0:1].Close.values - amd_data[0:1].Open.values
 #        print(amd_data[0:1].Close.values, " ", amdDifference)
-        return amd_data[0:1].Close.values, " ", amdDifference
+        result["amd"]["close"] = str(amd_data[0:1].Close.values)
+        result["amd"]["difference"] = str(amdDifference)
 
-    elif (stock == "apple"):
+    if "apple" in stock:
         apple_data['Date'] = pd.to_datetime(apple_data.Date, infer_datetime_format=True)
         apple_data.sort_values(by="Date", ascending=False, inplace=True)
         appleDifference =apple_data[0:1].Close.values -apple_data[0:1].Open.values
 #        print(apple_data[0:1].Close.values, " ", appleDifference)
-        return apple_data[0:1].Close.values, " ", appleDifference
+        result["apple"]["close"] = str(apple_data[0:1].Close.values)
+        result["apple"]["difference"] = str(appleDifference)
 
-    elif (stock == "gme"):
+    if "gme" in stock:
         gme_data['Date'] = pd.to_datetime(gme_data.Date, infer_datetime_format=True)
         gme_data.sort_values(by="Date", ascending=False, inplace=True)
         gmeDifference =gme_data[0:1].Close.values -gme_data[0:1].Open.values
 #        print(gmedf[0:1].Close.values, " ", gmeDifference)
-        return gme_data[0:1].Close.values, " ", gmeDifference
+        result["gme"]["close"] = str(gme_data[0:1].Close.values)
+        result["gme"]["difference"] = str(gmeDifference)
 
-    elif (stock == "tesla"):
+    if "tesla" in stock:
         tesla_data['Date'] = pd.to_datetime(tesla_data.Date, infer_datetime_format=True)
         tesla_data.sort_values(by="Date", ascending=False, inplace=True)
         teslaDifference = tesla_data[0:1].Close.values - tesla_data[0:1].Open.values
 #        print(tesladf[0:1].Close.values, " ", teslaDifference)
-        return tesla_data[0:1].Close.values, " ", teslaDifference
+        result["tesla"]["close"] = str(tesla_data[0:1].Close.values)
+        result["tesla"]["difference"] = str(teslaDifference)
 
-    elif (stock == "twitter"):
-        twitter_data['Date'] = pd.to_datetime(twitter_data.Date, infer_datetime_format=True)
+    if "twitter" in stock:
+        twitter_data['Date'] = pd.to_datetime(twitter_data.Date, format='%d/%m/%Y', infer_datetime_format=True)
         twitter_data.sort_values(by="Date", ascending=False, inplace=True)
         twitterDifference = twitter_data[0:1].Close.values -twitter_data[0:1].Open.values
 #        print(twitterdf[0:1].Close.values, " ", twitterDifference)
-        return twitter_data[0:1].Close.values, " ", twitterDifference
+        result["twitter"]["close"] = str(twitter_data[0:1].Close.values)
+        result["twitter"]["difference"] = str(twitterDifference)
+
+    for stock_count, values in result.items():
+        for key, value in values.items():
+            values[key] = value[1:-1]
+    return result
 
 def graph_Stock_Predict(stock):
-
-    if (stock == "amd"):
-        plt.figure(figsize=(15, 5))
+    stock = stock["stock"]
+    if "amd" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('AMD Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(amd_g_train['Close'])
         plt.plot(amd_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/amd_predict.png')
+        return 'static/amd_predict.png'
 
-    elif (stock == "apple"):
-        plt.figure(figsize=(15, 5))
+    if "apple" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Apple Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(apple_g_train['Close'])
         plt.plot(apple_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/apple_predict.png')
+        return 'static/apple_predict.png'
 
 
 
-    elif (stock == "gme"):
-        plt.figure(figsize=(15, 5))
+    if "gme" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('GME Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(gme_g_train['Close'])
         plt.plot(gme_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/gme_predict.png')
+        return 'static/gme_predict.png'
 
 
-    elif (stock == "tesla"):
-        plt.figure(figsize=(15, 5))
+    if "tesla" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Tesla Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(tesla_g_train['Close'])
         plt.plot(tesla_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/tesla_predict.png')
+        return 'static/tesla_predict.png'
 
-    elif (stock == "twitter"):
-        plt.figure(figsize=(15, 5))
+    if "twitter" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title('Twitter Prediction')
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close price', fontsize=18)
         plt.plot(twitter_g_train['Close'])
         plt.plot(twitter_g_valid['predictions'])
         plt.legend(['History','Prediction'], loc='best')
-        return plt.show()
+        fig.savefig('static/twitter_predict.png')
+        return 'static/twitter_predict.png'
 
 def graph_Stock_Graph(stock):
-
-    if (stock == "amd"):
-        plt.figure(figsize=(15, 5))
+    stock = stock["stock"]
+    if "amd" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("AMD Close History")
         plt.plot(amddf['Close'])
         plt.xlabel('Date', fontsize=18)
         plt.ylabel('Close Price')
-        return plt.show()
+        fig.savefig('static/amd.png')
+        return 'static/amd.png'
 
-    elif (stock == "apple"):
-        plt.figure(figsize=(15, 5))
+    if "apple" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Apple Close History")
         plt.plot(appledf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/apple.png')
+        return 'static/apple.png'
 
-    elif (stock == "gme"):
-        plt.figure(figsize=(15, 5))
+    if "gme" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("GME Close History")
         plt.plot(gmedf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/gme.png')
+        return 'static/gme.png'
 
-    elif (stock == "tesla"):
-        plt.figure(figsize=(15, 5))
+    if "tesla" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Tesla Close History")
         plt.plot(tesladf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/tesla.png')
+        return 'static/tesla.png'
 
-    elif (stock == "twitter"):
-        plt.figure(figsize=(15, 5))
+    if "twitter" in stock:
+        fig = plt.figure(figsize=(15, 5))
         plt.title("Twitter Close History")
         plt.plot(twitterdf["Close"])
         plt.xlabel("Date", fontsize=10)
         plt.ylabel("Close Price", fontsize=10)
-        return plt.show()
+        fig.savefig('static/twitter.png')
+        return 'static/twitter.png'
+
+stock = {"stock":["amd","gme","tesla","twitter"]}
+graph = {"stock":["gme"]}
+#print(stock_Price_Pred(stock))
+#{'amd': {'close': '81.11000061', 'difference': '-1.01999664'}, 'apple': {'close': '', 'difference': ''}, 'gme': {'close': '193.6000061', 'difference': '-71.3999939'}, 'tesla': {'close': '1091.839966', 'difference': '26.73999'}, 'twitter': {'close': '39.41', 'difference': '0.400002'}}
 
 
-"""
-graph_Stock_Graph("amd")
-graph_Stock_Predict("amd")
 
-graph_Stock_Graph("apple")
-graph_Stock_Predict("apple")
+graph_Stock_Graph(graph)
+graph_Stock_Predict(graph)
 
-graph_Stock_Graph("twitter")
-graph_Stock_Predict("twitter")
 
-graph_Stock_Graph("gme")
-graph_Stock_Predict("gme")
-
-graph_Stock_Graph("tesla")
-graph_Stock_Predict("tesla")
-"""

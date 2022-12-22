@@ -4,12 +4,11 @@ import requests
 import datetime
 
 
-class Test(TestCase):
-    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE ,ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST
+class Test_API(TestCase):
+    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST
     API_URL = "http://127.0.0.1:5050"
 
-
-    REGISTER_SAMPLE = {"firstname": "David",
+    REGISTER_SAMPLE = {"firstname": "Test",
                        "lastname": "Lee",
                        "email": "dl@mycit.ie",
                        "password": 12345,
@@ -22,14 +21,14 @@ class Test(TestCase):
         "stock": ["amd", "tesla", "apple", "gme", "twitter"],
         "crypto": ["binance", "bitcoin", "cardano", "dogecoin", "ethereum"]}
 
-    CRYPTO_TEST = {"crypto": "amd"}
+    CRYPTO_TEST = {"crypto": "bitcoin"}
 
     STOCK_TEST = {"stock": "tesla"}
 
     PURCHASE_SAMPLE = {"email": "dl@mycit.ie",
-                       "purchaseAmount": 500,
+                       "purchaseAmount": "500.00",
                        "asset": "amd",
-                       "date": datetime.datetime.now().isoformat()
+                       "date": "2022-12-12"
                        }
 
     ADD_CLIENT_SAMPLE = {"firstname": "Alan",
@@ -39,7 +38,7 @@ class Test(TestCase):
 
     TEST_GET_CLIENT = {"email": "ah@mycit.ie"}
 
-    CHATBOX_TEST = {"chatbot":""}
+    CHATBOX_TEST = {"chatbot": ""}
 
     def test_register(self):
         response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE)
@@ -48,12 +47,12 @@ class Test(TestCase):
     def test_login(self):
         response = requests.get(f"{API_URL}/login", json=LOGIN)
         self.assertEqual(response.status_code, 200)
-        """
+
         login = {"email": "dllll@mycit.ie",
                  "password": 12345}
-        response = requests.get(f"{API_URL}/login", json=LOGIN)
+        response = requests.get(f"{API_URL}/login", json=login)
         self.assertEqual(response.status_code, 200)
-        """
+
 
     def test_price_diff(self):
         response = requests.get(f"{API_URL}/pricediff", json=STOCK_CRYPTO_SAMPLE)
@@ -68,11 +67,11 @@ class Test(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_purchase(self):
-        response = requests.get(f"{API_URL}/purchase", json=PURCHASE_SAMPLE)
+        response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE)
         self.assertEqual(response.status_code, 200)
 
     def test_addclient(self):
-        response = requests.get(f"{API_URL}/addclient", json=ADD_CLIENT_SAMPLE)
+        response = requests.post(f"{API_URL}/addclient", json=ADD_CLIENT_SAMPLE)
         self.assertEqual(response.status_code, 200)
 
     def test_get_client_list(self):
@@ -82,5 +81,4 @@ class Test(TestCase):
     def test_chatbot(self):
         response = requests.get(f"{API_URL}/chatbot", json=CHATBOX_TEST)
         self.assertEqual(response.status_code, 200)
-
 

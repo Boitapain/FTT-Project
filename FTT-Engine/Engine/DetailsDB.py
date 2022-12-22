@@ -28,15 +28,14 @@ db_cursor.execute('CREATE TABLE IF NOT EXISTS userdetails (id INT(11) NOT NULL A
 db_cursor.execute('CREATE TABLE IF NOT EXISTS clients (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                   ' first_name VARCHAR(255) NOT NULL,'
                   ' last_name VARCHAR(255) NOT NULL,'
-                  ' email VARCHAR(255) NOT NULL UNIQUE,'
+                  ' email VARCHAR(255) NOT NULL,'
                   ' broker VARCHAR(225) NOT NULL);')
 
 db_cursor.execute('CREATE TABLE IF NOT EXISTS purchasedetails (purchase_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                   ' email VARCHAR(255) NOT NULL,'
                   ' purchaseAmount VARCHAR(255) NOT NULL,'
                   ' asset VARCHAR(255) NOT NULL,'
-                  ' date VARCHAR(32) NOT NULL,'
-                  ' FOREIGN KEY (email) REFERENCES userdetails(email));')
+                  ' date DATE NOT NULL);')
 
 
 """
