@@ -6,7 +6,7 @@ from flask_cors import CORS
 import DetailsDB
 import Crypto_Predict
 import Stock_Predict
-#import train_chatbox
+import train_chatbox
 import chatapp
 
 app = flask.Flask(__name__)
@@ -39,7 +39,7 @@ def register():
     """
     msg_received = flask.request.get_json(force=True)
     if msg_received != None:
-        DetailsDB.register(msg_received)
+        result = DetailsDB.register(msg_received)
         return "registered"
     else:
         return "Invalid request."

@@ -7,7 +7,9 @@ import base64
 
 
 class Test_API(TestCase):
-    global API_URL, LOGIN, REGISTER_SAMPLE_1, REGISTER_SAMPLE_2, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, GET_PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
+    global API_URL, LOGIN, REGISTER_SAMPLE_1, REGISTER_SAMPLE_2, REGISTER_SAMPLE_3, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST
+    global STOCK_TEST, PURCHASE_SAMPLE_1, PURCHASE_SAMPLE_2, GET_PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE_1, ADD_CLIENT_SAMPLE_2
+    global TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
     API_URL = "http://127.0.0.1:5050"
     HEADERS = {"Content-Type": "application/json"}
 
@@ -38,7 +40,7 @@ class Test_API(TestCase):
                        "asset": "amd",
                        "date": "2022-12-12"
                        }
-    PURCHASE_SAMPLE_1 = {"email": "vb@mycit.ie",
+    PURCHASE_SAMPLE_2 = {"email": "vb@mycit.ie",
                          "purchaseAmount": "2000.00",
                          "asset": "bitcoin",
                          "date": "2022-12-12"
@@ -46,10 +48,14 @@ class Test_API(TestCase):
 
     GET_PURCHASE_SAMPLE = {"email": "dl@mycit.ie"}
 
-    ADD_CLIENT_SAMPLE = {"firstname": "Alan",
+    ADD_CLIENT_SAMPLE_1 = {"firstname": "Alan",
                          "lastname": "Healy",
                          "email": "ah@mycit.ie",
                          "broker": "David"}
+    ADD_CLIENT_SAMPLE_2 = {"firstname": "Steven",
+                           "lastname": "Belle",
+                           "email": "sb@mycit.ie",
+                           "broker": "Vincent"}
 
     TEST_GET_CLIENT = {"email": "ah@mycit.ie"}
 
@@ -62,9 +68,6 @@ class Test_API(TestCase):
         self.assertEqual(response.status_code, 200)
         print(response.text)
         response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE_2)
-        self.assertEqual(response.status_code, 200)
-        print(response.text)
-        response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE_1)
         self.assertEqual(response.status_code, 200)
         print(response.text)
 
@@ -111,12 +114,18 @@ class Test_API(TestCase):
         print(response.text)
 
     def test_purchase(self):
-        response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE, headers=HEADERS)
+        response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE_1, headers=HEADERS)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
+        response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE_2, headers=HEADERS)
         self.assertEqual(response.status_code, 200)
         print(response.text)
 
     def test_addclient(self):
-        response = requests.post(f"{API_URL}/addclient", json=ADD_CLIENT_SAMPLE)
+        response = requests.post(f"{API_URL}/addclient", json=ADD_CLIENT_SAMPLE_1)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
+        response = requests.post(f"{API_URL}/addclient", json=ADD_CLIENT_SAMPLE_2)
         self.assertEqual(response.status_code, 200)
         print(response.text)
 
