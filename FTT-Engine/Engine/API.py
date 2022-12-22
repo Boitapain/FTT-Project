@@ -26,6 +26,15 @@ price difference for each crypto/stock.
 
 @app.route('/register', methods = ["GET", "POST"])
 def register():
+    """
+    Sample Message:
+
+    {"firstname": "Test",
+    "lastname": "Lee",
+    "email": "dl@mycit.ie",
+    "password": 12345,
+    "financial_inst": ""}
+    """
     msg_received = flask.request.get_json(force=True)
     if msg_received != None:
         DetailsDB.register(msg_received)
@@ -35,6 +44,12 @@ def register():
 
 @app.route('/login', methods = ["GET", "POST"])
 def login():
+    """
+    Sample Message:
+
+    {"email": "dl@mycit.ie",
+     "password": 12345}
+    """
     msg_received = flask.request.get_json(force=True)
     global login
     if msg_received != None:
@@ -50,6 +65,12 @@ price difference for each crypto/stock.
 """
 @app.route('/pricediff', methods = ["GET", "POST"])
 def price_diff():
+    """
+    Sample Message:
+
+    {   "stock": ["amd", "tesla", "apple", "gme", "twitter"],
+        "crypto": ["binance", "bitcoin", "cardano", "dogecoin", "ethereum"]}
+    """
     msg_received = flask.request.get_json(force=True)
     global login
     if login == True:
@@ -69,6 +90,11 @@ return the graphs (current and prediciton)
 """
 @app.route('/stockpage', methods = ["GET", "POST"])
 def stock_page():
+    """
+    Sample Message:
+
+    {"stock": "tesla"}
+    """
     msg_received = flask.request.get_json(force=True)
     if msg_received == "stock":
         diff = Stock_Predict.stock_Price_Pred(msg_received)
@@ -85,6 +111,11 @@ return the graphs (current and prediciton)
 """
 @app.route('/cryptopage', methods = ["GET", "POST"])
 def crypto_page():
+    """
+    Sample Message:
+
+    {"crypto": "bitcoin"}
+    """
     msg_received = flask.request.get_json(force=True)
     if msg_received == "crypto":
         diff = Crypto_Predict.crypto_Price_Diff(msg_received)
@@ -100,6 +131,14 @@ the details of the purchase to the api and it will be stored in the database.
 """
 @app.route('/purchase', methods = ["POST"])
 def purchase():
+    """
+    Sample Message:
+
+    {"email": "dl@mycit.ie",
+     "purchaseAmount": "500.00",
+     "asset": "amd",
+     "date": "2022-12-12"}
+    """
     msg_received = flask.request.get_json(force=True)
     if msg_received == "purchase":
         return DetailsDB.addclient(msg_received)
@@ -112,6 +151,11 @@ the chatbot to the website
 """
 @app.route('/chatbot', methods = ["GET", "POST"])
 def chatbot():
+    """
+        Sample Message:
+
+        {"message": "Hello"}
+    """
     msg_received = flask.request.get_json(force=True)["message"]
 
     if msg_received != None:
@@ -122,6 +166,14 @@ def chatbot():
 
 @app.route('/addclient', methods = ["POST"])
 def addclient():
+    """
+    Sample Message:
+
+    {"firstname": "Alan",
+     "lastname": "Healy",
+     "email": "ah@mycit.ie",
+     "broker": "Steven"}
+    """
     msg_received = flask.request.get_json(force=True)
 
     if msg_received != None:
@@ -131,6 +183,11 @@ def addclient():
 
 @app.route('/getclients', methods=["GET", "POST"])
 def getClientList():
+    """
+        Sample Message:
+
+        {"email": "ah@mycit.ie"}
+        """
     global login
     msg_received = flask.request.get_json(force=True)
     if (login == True):
