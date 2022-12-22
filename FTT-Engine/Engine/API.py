@@ -162,10 +162,24 @@ def purchase():
      "date": "2022-12-12"}
     """
     msg_received = flask.request.get_json(force=True)
-    if msg_received == "purchase":
-        return DetailsDB.addclient(msg_received)
+    if msg_received != None:
+        result =  DetailsDB.add_purchase(msg_received)
+        if result == "successful":
+            return result
+        else:
+            return result
     else:
-        return "Invalid request."
+        return "Invalid request"
+
+@app.route('/getpurchase', methods = ["GET", "POST"])
+def get_purchase():
+    global login
+    msg_received = flask.request.get_json(force=True)
+    if msg_received != None:
+        results = DetailsDB.get_purchase(msg_received)
+        return jsonify(results)
+    else:
+        return "Invalid request"
 
 """
 If chatbot is called, the website will send the message "chatbot". The API will return
@@ -212,10 +226,11 @@ def getClientList():
         """
     global login
     msg_received = flask.request.get_json(force=True)
-    if (login == True):
-        return DetailsDB.getClientsList(msg_received)
+    if msg_received != None:
+        result = DetailsDB.getClientsList(msg_received)
+        return jsonify(result)
     else:
-        return "not connected"
+        return "Invalid request"
 
 @app.route('/logout', methods=["GET"])
 def logout():

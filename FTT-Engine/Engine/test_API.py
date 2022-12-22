@@ -7,7 +7,7 @@ import base64
 
 
 class Test_API(TestCase):
-    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
+    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, GET_PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
     API_URL = "http://127.0.0.1:5050"
     HEADERS = {"Content-Type": "application/json"}
 
@@ -34,6 +34,8 @@ class Test_API(TestCase):
                        "date": "2022-12-12"
                        }
 
+    GET_PURCHASE_SAMPLE = {"email": "dl@mycit.ie"}
+
     ADD_CLIENT_SAMPLE = {"firstname": "Alan",
                          "lastname": "Healy",
                          "email": "ah@mycit.ie",
@@ -48,16 +50,22 @@ class Test_API(TestCase):
     def test_register(self):
         response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
     def test_login(self):
         response = requests.get(f"{API_URL}/login", json=LOGIN)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
         login = {"email": "dllll@mycit.ie",
                  "password": 12345}
         response = requests.get(f"{API_URL}/login", json=login)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
+        response = requests.get(f"{API_URL}/login", json=LOGIN)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
 
     def test_price_diff(self):
         response = requests.get(f"{API_URL}/pricediff", json=STOCK_CRYPTO_SAMPLE, headers=HEADERS)
@@ -89,14 +97,17 @@ class Test_API(TestCase):
     def test_purchase(self):
         response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE, headers=HEADERS)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
     def test_addclient(self):
         response = requests.post(f"{API_URL}/addclient", json=ADD_CLIENT_SAMPLE)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
     def test_get_client_list(self):
-        response = requests.get(f"{API_URL}/getclients", json=TEST_GET_CLIENT)
+        response = requests.post(f"{API_URL}/getclients", json=TEST_GET_CLIENT)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
     def test_chatbot(self):
         response = requests.post(f"{API_URL}/chatbot", json=CHATBOX_TEST_1)
@@ -109,3 +120,13 @@ class Test_API(TestCase):
         self.assertEqual(response.status_code, 200)
         print(response.text)
 
+    def test_get_purchase(self):
+        response = requests.post(f"{API_URL}/getpurchase", json=GET_PURCHASE_SAMPLE)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
+
+
+    def test_logout(self):
+        response = requests.get(f"{API_URL}/logout")
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
