@@ -7,15 +7,20 @@ import base64
 
 
 class Test_API(TestCase):
-    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, GET_PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
+    global API_URL, LOGIN, REGISTER_SAMPLE_1, REGISTER_SAMPLE_2, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, GET_PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
     API_URL = "http://127.0.0.1:5050"
     HEADERS = {"Content-Type": "application/json"}
 
-    REGISTER_SAMPLE = {"firstname": "Test",
+    REGISTER_SAMPLE_1 = {"firstname": "David",
                        "lastname": "Lee",
                        "email": "dl@mycit.ie",
                        "password": 12345,
                        "financial_inst": ""}
+    REGISTER_SAMPLE_2 = {"firstname": "Vincent",
+                         "lastname": "Bullion",
+                         "email": "vb@mycit.ie",
+                         "password": 23456,
+                         "financial_inst": "FTT"}
 
     LOGIN = {"email": "dl@mycit.ie",
              "password": 12345}
@@ -28,18 +33,23 @@ class Test_API(TestCase):
 
     STOCK_TEST = {"stock": "tesla"}
 
-    PURCHASE_SAMPLE = {"email": "dl@mycit.ie",
+    PURCHASE_SAMPLE_1 = {"email": "dl@mycit.ie",
                        "purchaseAmount": "500.00",
                        "asset": "amd",
                        "date": "2022-12-12"
                        }
+    PURCHASE_SAMPLE_1 = {"email": "vb@mycit.ie",
+                         "purchaseAmount": "2000.00",
+                         "asset": "bitcoin",
+                         "date": "2022-12-12"
+                         }
 
     GET_PURCHASE_SAMPLE = {"email": "dl@mycit.ie"}
 
     ADD_CLIENT_SAMPLE = {"firstname": "Alan",
                          "lastname": "Healy",
                          "email": "ah@mycit.ie",
-                         "broker": "Steven"}
+                         "broker": "David"}
 
     TEST_GET_CLIENT = {"email": "ah@mycit.ie"}
 
@@ -48,7 +58,13 @@ class Test_API(TestCase):
     CHATBOX_TEST_3 = {"message": "deposit"}
 
     def test_register(self):
-        response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE)
+        response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE_1)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
+        response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE_2)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
+        response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE_1)
         self.assertEqual(response.status_code, 200)
         print(response.text)
 
