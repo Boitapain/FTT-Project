@@ -112,10 +112,11 @@ the chatbot to the website
 """
 @app.route('/chatbot', methods = ["GET", "POST"])
 def chatbot():
-    msg_received = flask.request.get_json(force=True)
+    msg_received = flask.request.get_json(force=True)["message"]
 
-    if msg_received == "chatbot":
-        return chatapp.return_chatbot()
+    if msg_received != None:
+        response = chatapp.chatbot_response(msg_received)
+        return jsonify({'response': response})
     else:
         return "Invalid request"
 
