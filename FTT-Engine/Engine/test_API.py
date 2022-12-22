@@ -1,12 +1,15 @@
+import subprocess
 from unittest import TestCase
 import json
 import requests
 import datetime
+import base64
 
 
 class Test_API(TestCase):
-    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST
+    global API_URL, LOGIN, REGISTER_SAMPLE, STOCK_CRYPTO_SAMPLE, CRYPTO_TEST, STOCK_TEST, PURCHASE_SAMPLE, ADD_CLIENT_SAMPLE, TEST_GET_CLIENT, CHATBOX_TEST_1, CHATBOX_TEST_2, CHATBOX_TEST_3, HEADERS
     API_URL = "http://127.0.0.1:5050"
+    HEADERS = {"Content-Type": "application/json"}
 
     REGISTER_SAMPLE = {"firstname": "Test",
                        "lastname": "Lee",
@@ -38,7 +41,9 @@ class Test_API(TestCase):
 
     TEST_GET_CLIENT = {"email": "ah@mycit.ie"}
 
-    CHATBOX_TEST = {"chatbot": ""}
+    CHATBOX_TEST_1 = {"message": "Hello"}
+    CHATBOX_TEST_2 = {"message": "crypto"}
+    CHATBOX_TEST_3 = {"message": "deposit"}
 
     def test_register(self):
         response = requests.post(f"{API_URL}/register", json=REGISTER_SAMPLE)
@@ -55,19 +60,34 @@ class Test_API(TestCase):
 
 
     def test_price_diff(self):
-        response = requests.get(f"{API_URL}/pricediff", json=STOCK_CRYPTO_SAMPLE)
+        response = requests.get(f"{API_URL}/pricediff", json=STOCK_CRYPTO_SAMPLE, headers=HEADERS)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
 
     def test_stock_page(self):
         response = requests.get(f"{API_URL}/stockpage", json=STOCK_TEST)
         self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        for key, file in (("graph_url", "stock1.png"), ("pred_graph_url", "stock2.png")):
+            image_data_b64 = response_json[key]
+            image_data = base64.b64decode(image_data_b64)
+            with open(f"Test_image/{file}", "wb") as f:
+                f.write(image_data)
+        print(response.text)
 
     def test_crypto_page(self):
         response = requests.get(f"{API_URL}/cryptopage", json=CRYPTO_TEST)
         self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        for key, file in (("graph_url", "crypto1.png"), ("pred_graph_url", "crypto2.png")):
+            image_data_b64 = response_json[key]
+            image_data = base64.b64decode(image_data_b64)
+            with open(f"Test_image/{file}", "wb") as f:
+                f.write(image_data)
+        print(response.text)
 
     def test_purchase(self):
-        response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE)
+        response = requests.post(f"{API_URL}/purchase", json=PURCHASE_SAMPLE, headers=HEADERS)
         self.assertEqual(response.status_code, 200)
 
     def test_addclient(self):
@@ -79,6 +99,13 @@ class Test_API(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_chatbot(self):
-        response = requests.get(f"{API_URL}/chatbot", json=CHATBOX_TEST)
+        response = requests.post(f"{API_URL}/chatbot", json=CHATBOX_TEST_1)
         self.assertEqual(response.status_code, 200)
+        print(response.text)
+        response = requests.post(f"{API_URL}/chatbot", json=CHATBOX_TEST_2)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
+        response = requests.post(f"{API_URL}/chatbot", json=CHATBOX_TEST_3)
+        self.assertEqual(response.status_code, 200)
+        print(response.text)
 
