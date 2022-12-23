@@ -14,6 +14,11 @@ class GetBrokerPremium : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_broker_premium)
+
+        dismiss = findViewById(R.id.dismissBtn)
+        dismiss.setOnClickListener(this)
+        getBroker = findViewById(R.id.getBrokerBtn)
+        getBroker.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {

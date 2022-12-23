@@ -58,6 +58,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun postRequest(postUrl: String?, postBody: RequestBody?) {
+        val intent = android.content.Intent(this, GetBrokerPremium::class.java)
         val client = OkHttpClient()
         val request = Request.Builder()
             .url(postUrl)
@@ -82,6 +83,7 @@ class RegisterActivity : AppCompatActivity() {
                     runOnUiThread {
                         if (responseString == "successful") {
                             responseTextRegister.text = "Registration completed successfully."
+                            startActivity(intent)
                             finish()
                         } else if (responseString == "failure") {
                             responseTextRegister.text =

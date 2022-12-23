@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun postRequest(postUrl: String?, postBody: RequestBody?) {
+        val intent = android.content.Intent(this, HomeActivity::class.java)
         val client = OkHttpClient()
         val request = Request.Builder()
             .url(postUrl)
@@ -82,6 +83,7 @@ class LoginActivity : AppCompatActivity() {
                         )
                         if (loginResponseString == "successful") {
                             Log.d("LOGIN", "Successful Login")
+                            startActivity(intent)
                             finish() //finishing activity and return to the calling activity.
                         } else if (loginResponseString == "failure") {
                             responseTextLogin.text = "Login Failed. Invalid username or password."
