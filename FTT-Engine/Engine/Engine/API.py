@@ -6,7 +6,7 @@ from flask_cors import CORS
 import DetailsDB
 import Crypto_Predict
 import Stock_Predict
-import train_chatbox
+#import train_chatbox
 import chatapp
 
 app = flask.Flask(__name__)
@@ -39,10 +39,10 @@ def register():
     """
     msg_received = flask.request.get_json(force=True)
     if msg_received != None:
-        result = DetailsDB.register(msg_received)
-        return jsonify("registered")
+        DetailsDB.register(msg_received)
+        return "registered"
     else:
-        return jsonify("Invalid request.")
+        return "Invalid request."
 
 @app.route('/login', methods = ["GET", "POST"])
 def login():
@@ -55,12 +55,8 @@ def login():
     msg_received = flask.request.get_json(force=True)
     global login
     if msg_received != None:
-        login_pass_fail = DetailsDB.login(msg_received)
-        if login_pass_fail == "successful":
-            login = True
-            return jsonify("success")
-        else:
-            return jsonify("failure")
+        return DetailsDB.login(msg_received)
+        login = True
     else:
         return "Invalid request."
 
@@ -79,15 +75,13 @@ def price_diff():
     """
     msg_received = flask.request.get_json(force=True)
     global login
-    if login == True:
-        if "crypto" in msg_received or "stock" in msg_received:
-            crypto =  Crypto_Predict.crypto_Price_Diff(msg_received)
-            stock =  Stock_Predict.stock_Price_Pred(msg_received)
-            return jsonify(crypto=crypto, stock=stock)
-        else:
-            return jsonify("failure")
+    #if login != True:
+    if "crypto" in msg_received or "stock" in msg_received:
+        crypto =  Crypto_Predict.crypto_Price_Diff(msg_received)
+        stock =  Stock_Predict.stock_Price_Pred(msg_received)
+        return jsonify(crypto=crypto, stock=stock)
     else:
-        return jsonify("Invalid request")
+        return "Invalid request."
 
 """
 If stock page is called, app/website will send name of stock
@@ -117,7 +111,7 @@ def stock_page():
 
         return jsonify(diff=diff, graph_url=graph_data_b64, pred_graph_url=pred_graph_data_b64)
     else:
-        return jsonify("Invalid request")
+        return "Invalid request."
 
 """
 If crypto page is called, app/website will send name of crypto
@@ -147,13 +141,13 @@ def crypto_page():
 
         return jsonify(diff=diff, graph_url=graph_data_b64, pred_graph_url=pred_graph_data_b64)
     else:
-        return jsonify("Invalid request")
+        return "Invalid request."
 
 """
 If purchase is called, the app/website will send the message "purchase" with
 the details of the purchase to the api and it will be stored in the database.
 """
-@app.route('/purchase', methods = ["GET", "POST"])
+@app.route('/purchase', methods = ["POST"])
 def purchase():
     """
     Sample Input Message:
@@ -164,24 +158,10 @@ def purchase():
      "date": "2022-12-12"}
     """
     msg_received = flask.request.get_json(force=True)
-    if msg_received != None:
-        result =  DetailsDB.add_purchase(msg_received)
-        if result == "successful":
-            return jsonify(result)
-        else:
-            return jsonify(result)
+    if msg_received == "purchase":
+        return DetailsDB.addclient(msg_received)
     else:
-        return jsonify("Invalid request")
-
-@app.route('/getpurchase', methods = ["GET", "POST"])
-def get_purchase():
-    global login
-    msg_received = flask.request.get_json(force=True)
-    if msg_received != None:
-        results = DetailsDB.get_purchase(msg_received)
-        return jsonify(results)
-    else:
-        return jsonify("Invalid request")
+        return "Invalid request."
 
 """
 If chatbot is called, the website will send the message "chatbot". The API will return
@@ -200,7 +180,7 @@ def chatbot():
         response = chatapp.chatbot_response(msg_received)
         return jsonify({'response': response})
     else:
-        return jsonify("Invalid request")
+        return "Invalid request"
 
 @app.route('/addclient', methods = ["POST"])
 def addclient():
@@ -215,9 +195,9 @@ def addclient():
     msg_received = flask.request.get_json(force=True)
 
     if msg_received != None:
-        return jsonify(DetailsDB.addclient(msg_received))
+        return DetailsDB.addclient(msg_received)
     else:
-        return jsonify("Invalid request")
+        return "Invalid request."
 
 @app.route('/getclients', methods=["GET", "POST"])
 def getClientList():
@@ -228,20 +208,19 @@ def getClientList():
         """
     global login
     msg_received = flask.request.get_json(force=True)
-    if msg_received != None:
-        result = DetailsDB.getClientsList(msg_received)
-        return jsonify(result)
+    if (login == True):
+        return DetailsDB.getClientsList(msg_received)
     else:
-        return jsonify("Invalid request")
+        return "not connected"
 
 @app.route('/logout', methods=["GET"])
 def logout():
     global login
     login = False
     if(login == False):
-        return jsonify("success")
+        return "succes"
     else:
-        return jsonify("failure")
+        return "something went wrong"
 
 
 if __name__ == "__main__":

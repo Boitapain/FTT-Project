@@ -120,27 +120,15 @@ def getClientsList(msg_received):
     """
     email = msg_received['email']
 
-    client_details = {  "id":"",
-                        "first_name": "",
-                        "last_name": "",
-                        "email": "",
-                        "broker": ""}
-
     select_query = "SELECT * FROM clients where email = (%s)"
     db_cursor.execute(select_query, email)
-    result = db_cursor.fetchone()
-    if result:
-        client_details["id"] = result[0]
-        client_details["first_name"] = result[1]
-        client_details["last_name"] = result[2]
-        client_details["email"] = result[3]
-        client_details["broker"] = result[4]
-
-        return client_details
+    records = db_cursor.fetchall()
+    if len(records) != 0:
+        return jsonify({'client': records})
     else:
         return "No clients for this broker"
 
-def add_purchase(msg_received):
+def purchase(msg_received):
     db_cursor.execute("USE sql8583755")
 
     email = msg_received['email']
@@ -158,31 +146,6 @@ def add_purchase(msg_received):
     except Exception as e:
         print("Error while inserting the new record :", repr(e))
         return "failure"
-
-def get_purchase(msg_received):
-    db_cursor.execute("USE sql8583755")
-
-    email = msg_received['email']
-
-    purchase_details = {"purchase_id":"",
-                        "email":"",
-                        "purchaseAmount":"",
-                        "asset":"",
-                        "date":""}
-
-    select_query = "SELECT * FROM purchasedetails where email = (%s)"
-    db_cursor.execute(select_query, email)
-    result = db_cursor.fetchone()
-    if result:
-        purchase_details["purchase_id"] = result[0]
-        purchase_details["email"] = result[1]
-        purchase_details["purchaseAmount"] = result[2]
-        purchase_details["asset"] = result[3]
-        purchase_details["date"] = result[4]
-
-        return purchase_details
-    else:
-        return "No purchase details available"
 
 try:
     detailsdb = pymysql.connect(host='sql8.freesqldatabase.com',port=3306, user='sql8583755', passwd='AuCcUiq1hL', db="sql8583755")
