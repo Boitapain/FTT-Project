@@ -17,17 +17,17 @@ This system is divided into three distinctive applications :
 ## FTT-AI
 The API allows the FTT-Mobile App and the FTT-Website to send data through it and the API return data back to both when called.
 The API has 11 functions:
-   1 -> register         #Register details of the user on the database
-   2 -> login            #Login using the details that was registered
-   3 -> price difference #Current price and price difference between stock and crypto
-   4 -> stock_page       #View the stock page that was called 
-   5 -> crypto_page      #View the crypto page that was called
-   6 -> purchase         #Add purchase details to the database
-   7 -> get_purchase     #Get purchase details from the database
-   8 -> add_client       #Add client details to the database
-   9 -> get_client       #Get client details from the database
-  10 -> chatbot          #Interact with chatbot
-  11 -> logout           #Logout of android app or website
+ 1 -> register         #Register details of the user on the database
+ 2 -> login            #Login using the details that was registered
+ 3 -> price difference #Current price and price difference between stock and crypto
+ 4 -> stock_page       #View the stock page that was called 
+ 5 -> crypto_page      #View the crypto page that was called
+ 6 -> purchase         #Add purchase details to the database
+ 7 -> get_purchase     #Get purchase details from the database
+ 8 -> add_client       #Add client details to the database
+ 9 -> get_client       #Get client details from the database
+ 10 -> chatbot          #Interact with chatbot
+ 11 -> logout           #Logout of android app or website
 
 
 
