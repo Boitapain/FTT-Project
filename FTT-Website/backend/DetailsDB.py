@@ -4,17 +4,17 @@ import json
 from flask import jsonify
 
 try:
-    detailsdb = pymysql.connect(host='127.0.0.1',port=3306, user='group17', passwd='group17', db="details_db")
+    detailsdb = pymysql.connect(host='sql8.freesqldatabase.com',port=3306, user='sql8583755', passwd='AuCcUiq1hL', db="sql8583755")
 except:
     sys.exit("Error connecting to the host")
 
 
 db_cursor = detailsdb.cursor()
 
-try:
-    db_cursor.execute("CREATE DATABASE IF NOT EXISTS details_db")
-except pymysql.DatabaseError:
-    sys.exit("Error creating the database")
+# try:
+#     db_cursor.execute("CREATE DATABASE IF NOT EXISTS details_db")
+# except pymysql.DatabaseError:
+#     sys.exit("Error creating the database")
 
 db_cursor.execute('CREATE TABLE IF NOT EXISTS userdetails (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,'
                   ' first_name VARCHAR(255) NOT NULL,'
