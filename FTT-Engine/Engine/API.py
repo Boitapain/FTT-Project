@@ -40,9 +40,9 @@ def register():
     msg_received = flask.request.get_json(force=True)
     if msg_received != None:
         result = DetailsDB.register(msg_received)
-        return "registered"
+        return jsonify("registered")
     else:
-        return "Invalid request."
+        return jsonify("Invalid request.")
 
 @app.route('/login', methods = ["GET", "POST"])
 def login():
@@ -58,9 +58,9 @@ def login():
         login_pass_fail = DetailsDB.login(msg_received)
         if login_pass_fail == "successful":
             login = True
-            return "success"
+            return jsonify("success")
         else:
-            return "failure"
+            return jsonify("failure")
     else:
         return "Invalid request."
 
@@ -85,7 +85,9 @@ def price_diff():
             stock =  Stock_Predict.stock_Price_Pred(msg_received)
             return jsonify(crypto=crypto, stock=stock)
         else:
-            return "Invalid request."
+            return jsonify("failure")
+    else:
+        return jsonify("Invalid request")
 
 """
 If stock page is called, app/website will send name of stock
@@ -115,7 +117,7 @@ def stock_page():
 
         return jsonify(diff=diff, graph_url=graph_data_b64, pred_graph_url=pred_graph_data_b64)
     else:
-        return "Invalid request."
+        return jsonify("Invalid request")
 
 """
 If crypto page is called, app/website will send name of crypto
@@ -145,7 +147,7 @@ def crypto_page():
 
         return jsonify(diff=diff, graph_url=graph_data_b64, pred_graph_url=pred_graph_data_b64)
     else:
-        return "Invalid request."
+        return jsonify("Invalid request")
 
 """
 If purchase is called, the app/website will send the message "purchase" with
@@ -165,11 +167,11 @@ def purchase():
     if msg_received != None:
         result =  DetailsDB.add_purchase(msg_received)
         if result == "successful":
-            return result
+            return jsonify(result)
         else:
-            return result
+            return jsonify(result)
     else:
-        return "Invalid request"
+        return jsonify("Invalid request")
 
 @app.route('/getpurchase', methods = ["GET", "POST"])
 def get_purchase():
@@ -179,7 +181,7 @@ def get_purchase():
         results = DetailsDB.get_purchase(msg_received)
         return jsonify(results)
     else:
-        return "Invalid request"
+        return jsonify("Invalid request")
 
 """
 If chatbot is called, the website will send the message "chatbot". The API will return
@@ -198,7 +200,7 @@ def chatbot():
         response = chatapp.chatbot_response(msg_received)
         return jsonify({'response': response})
     else:
-        return "Invalid request"
+        return jsonify("Invalid request")
 
 @app.route('/addclient', methods = ["POST"])
 def addclient():
@@ -213,9 +215,9 @@ def addclient():
     msg_received = flask.request.get_json(force=True)
 
     if msg_received != None:
-        return DetailsDB.addclient(msg_received)
+        return jsonify(DetailsDB.addclient(msg_received))
     else:
-        return "Invalid request."
+        return jsonify("Invalid request")
 
 @app.route('/getclients', methods=["GET", "POST"])
 def getClientList():
@@ -230,16 +232,16 @@ def getClientList():
         result = DetailsDB.getClientsList(msg_received)
         return jsonify(result)
     else:
-        return "Invalid request"
+        return jsonify("Invalid request")
 
 @app.route('/logout', methods=["GET"])
 def logout():
     global login
     login = False
     if(login == False):
-        return "success"
+        return jsonify("success")
     else:
-        return "failure"
+        return jsonify("failure")
 
 
 if __name__ == "__main__":
