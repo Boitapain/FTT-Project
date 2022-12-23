@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         val responseText = findViewById<TextView>(R.id.responseText)
         if (requestCode == 2) { // Login
             responseText.text = "Successful Login."
+            startActivity(Intent(this, HomeActivity::class.java))
         } else {
             responseText.text = "Invalid or no data entered. Please try again."
         }

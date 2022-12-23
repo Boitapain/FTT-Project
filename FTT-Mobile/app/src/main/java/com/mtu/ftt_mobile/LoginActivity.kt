@@ -1,5 +1,6 @@
 package com.mtu.ftt_mobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun submit(v: View?) {
-        val usernameView = findViewById<EditText>(R.id.loginUsername)
+        val usernameView = findViewById<EditText>(R.id.loginEmail)
         val passwordView = findViewById<EditText>(R.id.loginPassword)
         val username = usernameView.text.toString().trim { it <= ' ' }
         val password = passwordView.text.toString().trim { it <= ' ' }

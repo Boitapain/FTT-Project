@@ -1,5 +1,6 @@
 package com.mtu.ftt_mobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun register(v: View?) {
-        val usernameView = findViewById<EditText>(R.id.username)
+        val usernameView = findViewById<EditText>(R.id.email)
         val firstNameView = findViewById<EditText>(R.id.firstName)
         val lastNameView = findViewById<EditText>(R.id.lastName)
         val passwordView = findViewById<EditText>(R.id.password)
@@ -40,7 +41,6 @@ class RegisterActivity : AppCompatActivity() {
             val registrationForm = JSONObject()
             try {
                 registrationForm.put("subject", "register")
-                registrationForm.put("table", "clients")
                 registrationForm.put("firstname", firstName)
                 registrationForm.put("lastname", lastName)
                 registrationForm.put("email", username)
