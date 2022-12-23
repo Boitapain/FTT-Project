@@ -34,7 +34,7 @@
                             'Content-type': 'application/json',
                             'Accept': 'application/json'
                         },
-                    body:JSON.stringify({email: "test@test.fr"})}).then(res=>{
+                    body:JSON.stringify({email: "jeremie@gmail.com"})}).then(res=>{
                             if(res.ok){
                                 return res.json()
                             }else{

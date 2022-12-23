@@ -4,10 +4,10 @@ import flask
 from flask import jsonify, send_file
 from flask_cors import CORS
 import DetailsDB
-import Crypto_Predict
-import Stock_Predict
-import train_chatbox
-import chatapp
+# import Crypto_Predict
+# import Stock_Predict
+# import train_chatbox
+# import chatapp
 
 app = flask.Flask(__name__)
 CORS(app)

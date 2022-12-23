@@ -67,15 +67,23 @@ price difference for each crypto/stock.
 
 @app.route('/pricediff', methods = ["GET", "POST"])
 def price_diff():
+    """
+    Sample Input Message:
+
+    {   "stock": ["amd", "tesla", "apple", "gme", "twitter"],
+        "crypto": ["binance", "bitcoin", "cardano", "dogecoin", "ethereum"]}
+    """
     msg_received = flask.request.get_json(force=True)
-    msg_subject = msg_received["subject"]
+    global login
     if login == True:
-        if msg_subject == "crypto":
-            return Crypto_Predict.crypto_Price_Diff(msg_received)
-        elif msg_subject == "stock":
-            return Stock_Predict.stock_Price_Pred(msg_received)
+        if "crypto" in msg_received or "stock" in msg_received:
+            crypto =  Crypto_Predict.crypto_Price_Diff(msg_received)
+            stock =  Stock_Predict.stock_Price_Pred(msg_received)
+            return jsonify(crypto=crypto, stock=stock)
+        else:
+            return jsonify("failure")
     else:
-        return "Invalid request."
+        return jsonify("Invalid request")
 
 """
 If stock page is called, app/website will send name of stock
