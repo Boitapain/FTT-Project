@@ -1,5 +1,4 @@
 import base64
-
 import flask
 from flask import jsonify, send_file
 from flask_cors import CORS
@@ -8,10 +7,22 @@ import Crypto_Predict
 import Stock_Predict
 import train_chatbox
 import chatapp
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = flask.Flask(__name__)
 CORS(app)
 login = False
+
+SWAGGET_URL = '/api'
+API_URL = '/static/swagger.json'
+swagger_blueprint = get_swaggerui_blueprint(
+    SWAGGET_URL,
+    API_URL,
+    config={
+        'app_name': "Group-17 FTT Assignment"
+    }
+)
+app.register_blueprint(swagger_blueprint, url_prefix=SWAGGET_URL)
 
 """
 Open Page with group names
@@ -36,6 +47,7 @@ def register():
     "email": "dl@mycit.ie",
     "password": 12345,
     "financial_inst": ""}
+    :return:
     """
     msg_received = flask.request.get_json(force=True)
     if msg_received != None:
