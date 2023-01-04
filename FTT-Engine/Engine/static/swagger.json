@@ -1,0 +1,575 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This API allows users to register and login to the application, view price differences between various stocks and cryptocurrencies, access stock and cryptocurrency pages with current and predicted graphs and prices, make purchases, view their purchase history, add and view clients, use a chatbot for assistance, and logout. It also allows financial advisors to add and view their clients.",
+    "title": "Group-17 FTT Assignment"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [{
+    "name": "Register & Login",
+    "description": "Registration and login functions for users"
+    },
+    {
+      "name": "Price Differrence",
+      "description": "Function to return price differences for each stock and crypto asset"
+    },
+    {
+      "name": "Stock & Crypto Page",
+      "description": "Functions to return a chosen stock or crypto asset at the users request"
+    },
+    {
+      "name": "Add and view purhcases",
+      "description": "Functions to add purchases to the database and view the purchases created"
+    },
+    {
+      "name": "Add and Get Client",
+      "description": "Functions to add new clients to the database as well as view the clients added"
+    },
+    {
+      "name": "Chatbot",
+      "description": "Function to send message to the chatbto and return a response"
+    },
+    {
+      "name": "Logout",
+      "description": "Function to logout user from thier account"
+    }
+
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Registers a new user",
+        "tags": ["Register & Login"],
+        "description": "This endpoint allows a new user to register for the application by providing their first and last name, email address, password, and optional financial institution.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Register"
+              },
+              "example": {
+                "firstname": "David",
+                "lastname": "Lee",
+                "email": "dl@mycit.ie",
+                "password": "12345",
+                "financial_inst": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful registration",
+            "schema": {
+              "$ref": "#/components/schemas/Register"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Logs in a user",
+        "tags": ["Register & Login"],
+        "description": "This endpoint allows an existing user to log in to the application by providing their email address and password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              },
+              "example": {
+                "email": "dl@mycit.ie",
+                "password": "12345"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "schema": {
+              "$ref": "#/components/schemas/Login"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/pricediff": {
+      "post": {
+        "summary": "Returns the price difference of stocks and cryptocurrencies",
+        "tags": ["Price Differrence"],
+        "description": "This endpoint allows the user to get the price difference for the specified stocks and cryptocurrencies.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Price_Difference"
+              },
+              "example": {
+                "stock": [
+                  "amd",
+                  "tesla",
+                  "apple",
+                  "gme",
+                  "twitter"
+                ],
+                "crypto": [
+                  "binance",
+                  "bitcoin",
+                  "cardano",
+                  "dogecoin",
+                  "ethereum"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/components/schemas/Price_Difference"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/stockpage": {
+      "post": {
+        "summary": "Returns stock graphs and stock price",
+        "tags": ["Stock & Crypto Page"],
+        "description": "This endpoint returns current and predicted stock graphs, as well as the current stock price, for the specified stock.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Stock_Page"
+              },
+              "example": {
+                "stock": [
+                  "amd"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/components/schemas/Stock_Page"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/cryptopage": {
+      "post": {
+        "summary": "Returns stock graphs and crypto price",
+        "tags": ["Stock & Crypto Page"],
+        "description": "This endpoint returns current and predicted crypto graphs, as well as the current crypto price, for the specified crypto.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Crypto_Page"
+              },
+              "example": {
+                "crypto": [
+                  "bitcoin"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/components/schemas/Crypto_Page"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/purchase": {
+      "post": {
+        "summary": "Makes a purchase",
+        "tags": ["Add and view purhcases"],
+        "description": "This endpoint allows a user to make a purchase by providing their email address, the purchase amount, the name of the asset, and the date of the purchase.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Purchase"
+              },
+              "example": {
+                "email": "dl@mycit.ie",
+                "purchaseAmount": "100",
+                "asset": "Tesla",
+                "date": "2022-01-02"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful purchase",
+            "schema": {
+              "$ref": "#/components/schemas/Purchase"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/getpurchase": {
+      "post": {
+        "summary": "Gets the purchase history for a user",
+        "tags": ["Add and view purhcases"],
+        "description": "This endpoint allows a user to retrieve their purchase history by providing their email address.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetPurchase"
+              },
+              "example": {
+                "email": "dl@mycit.ie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of purchase history",
+            "schema": {
+              "$ref": "#/components/schemas/GetPurchase"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/addclient": {
+      "post": {
+        "summary": "Adds a new client",
+        "tags": ["Add and Get Client"],
+        "description": "This endpoint allows the user to add a new client by providing their first and last name, email address, and broker name.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Add_Client"
+              },
+              "example": {
+                "firstname": "John",
+                "lastname": "Doe",
+                "email": "john.doe@example.com",
+                "broker": "David"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful addition of client",
+            "schema": {
+              "$ref": "#/components/schemas/Add_Client"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/getclients": {
+      "post": {
+        "summary": "Returns a list of clients",
+        "tags": ["Add and Get Client"],
+        "description": "This endpoint allows the authenticated user to retrieve client details by the email address.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetClients"
+              },
+              "example": {
+                "email": "dl@mycit.ie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of client details",
+            "schema": {
+              "$ref": "#/components/schemas/GetClients"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    },
+    "/chatbot": {
+      "post": {
+        "summary": "Sends a message to the chatbot",
+        "tags": ["Chatbot"],
+        "description": "This endpoint allows the user to send a message to the chatbot and receive a response.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatbotMessage"
+              },
+              "example": {
+                "message": "Hello, can you help me with something?"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "schema": {
+              "$ref": "#/components/schemas/Chatbot"
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "summary": "Logs out the current user",
+        "tags": ["Logout"],
+        "description": "This endpoint logs out the current user and invalidates their session.",
+        "responses": {
+          "200": {
+            "description": "Successful logout"
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Register": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "description": "The user's first name",
+            "required": "True",
+            "type": "string"
+          },
+          "lastname": {
+            "description": "The user's last name",
+            "required": "True",
+            "type": "string"
+          },
+          "email": {
+            "description": "The user's email address",
+            "required": "True",
+            "type": "string"
+          },
+          "password": {
+            "description": "The user's password",
+            "required": "True",
+            "type": "integer"
+          },
+          "financial_inst": {
+            "description": "The user's financial institution",
+            "required": "False",
+            "type": "string"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "The user's email address",
+            "required": "True",
+            "type": "string"
+          },
+          "password": {
+            "description": "The user's password",
+            "required": "True",
+            "type": "integer"
+          }
+        }
+      },
+      "Price_Difference": {
+        "type": "object",
+        "properties": {
+          "stock": {
+            "description": "Stock names to return price difference",
+            "type": "string",
+            "names": "amd, tesla, apple, gme, twitter"
+          },
+          "crypto": {
+            "description": "Crypto names to return price difference",
+            "type": "string",
+            "names": "binance, bitcoin, cardano, dogecoin, ethereum"
+          }
+        }
+      },
+      "Stock_Page": {
+        "type": "object",
+        "properties": {
+          "price_difference": {
+            "description": "Returns stock price",
+            "type": "object"
+          },
+          "Stock_Graph": {
+            "description": "Returns stock graph",
+            "type": "object"
+          },
+          "Predict_Graph": {
+            "description": "Returns stock prediction graph",
+            "type": "object"
+          }
+        }
+      },
+      "Crypto_Page": {
+        "type": "object",
+        "properties": {
+          "price_difference": {
+            "description": "Returns crypto price",
+            "type": "object"
+          },
+          "Crypto_Graph": {
+            "description": "Returns crypto graph",
+            "type": "object"
+          },
+          "Predict_Graph": {
+            "description": "Returns crypto prediction graph",
+            "type": "object"
+          }
+        }
+      },
+      "Purchase": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "The user's email address",
+            "type": "string"
+          },
+          "purchaseAmount": {
+            "description": "The purchase amount",
+            "type": "string"
+          },
+          "asset": {
+            "description": "The name of the asset",
+            "type": "string"
+          },
+          "date": {
+            "description": "The date of purchase",
+            "type": "date"
+          }
+        }
+      },
+      "Get_Purchase": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "The user's email address",
+            "required": "True",
+            "type": "string"
+          }
+        }
+      },
+      "Add_Client": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "description": "The clients first name",
+            "required": "True",
+            "type": "string"
+          },
+          "lastname": {
+            "description": "The clients last name",
+            "required": "True",
+            "type": "string"
+          },
+          "email": {
+            "description": "The clients email address",
+            "required": "True",
+            "type": "string"
+          },
+          "broker": {
+            "description": "The brokers name",
+            "required": "True",
+            "type": "string"
+          }
+        }
+      },
+      "Get_Cleint": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "The clients email address",
+            "required": "True",
+            "type": "string"
+          }
+        }
+      },
+      "Chatbot": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "Message sent to chatbot"
+          },
+          "response": {
+            "description": "Message returned from chatbot"
+          }
+        }
+      },
+      "logout": {
+        "type": "object",
+        "description": "Logout of app/website"
+      }
+    }
+  }
+}
+
+
